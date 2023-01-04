@@ -1,0 +1,16 @@
+author: Dev7ex
+database: false
+depend: []
+description: ${project.description}
+libraries:
+  - net.kyori:adventure-api:${dependency.adventure-api}
+  - org.apache.commons:commons-lang3:${dependency-commons-lang3.version}
+  - commons-io:commons-io:${dependency-commons-io.version}
+load: POSTWORLD
+loadbefore: []
+main: com.dev7ex.common.bukkit.BukkitCommonPlugin
+name: FacilisCommon
+prefix: FacilisCommon
+softdepend: []
+version: ${project.version}
+website: ${project.url}

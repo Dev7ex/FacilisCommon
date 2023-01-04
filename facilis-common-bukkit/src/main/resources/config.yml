@@ -1,0 +1,9 @@
+# Copyright (c) 2023 by Dev7ex
+# Version: 1.0.0
+prefix: '§8[§cFacilisCommon§8]§r'
+no-permission: '§cIm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that is in error.'
+
+settings:
+  receive-update-message: true
+  update-message: '%prefix% §7There is a new update available'
+
