@@ -1,5 +1,7 @@
 # Copyright (c) 2023 by Dev7ex
-# Version: 1.0.0
+# Version: ${project.version}
+config-version: ${project.version}
+
 prefix: '§8[§cFacilisCommon§8]§r'
 no-permission: '§cIm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that is in error.'
 
