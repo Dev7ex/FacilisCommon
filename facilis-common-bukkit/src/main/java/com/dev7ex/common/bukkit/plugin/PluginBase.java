@@ -97,7 +97,7 @@ public class PluginBase extends JavaPlugin {
     }
 
     public boolean hasMetrics() {
-        return this.getClass().getAnnotation(PluginProperties.class).metrics();
+        return (this.getClass().isAnnotationPresent(PluginProperties.class)) || (this.getClass().getAnnotation(PluginProperties.class).metrics());
     }
 
 }
