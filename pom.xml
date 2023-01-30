@@ -7,7 +7,7 @@
     <groupId>com.dev7ex</groupId>
     <artifactId>facilis-common</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-b002-SNAPSHOT</version>
 
     <modules>
         <module>facilis-common-bukkit</module>
@@ -19,10 +19,12 @@
         <maven.compiler.target>${project.source.version}</maven.compiler.target>
 
         <project.source.version>16</project.source.version>
+        <project.version>1.0.0-b002-SNAPSHOT</project.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
 
+        <dependency-maven-artifact-version>3.6.0</dependency-maven-artifact-version>
         <dependency.bstats.version>3.0.0</dependency.bstats.version>
         <dependency.adventure-api>4.12.0</dependency.adventure-api>
         <dependency.annotations.version>23.0.0</dependency.annotations.version>
