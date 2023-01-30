@@ -24,7 +24,7 @@ import java.util.Scanner;
  * @since 04.01.2022
  */
 @Getter(AccessLevel.PUBLIC)
-@PluginProperties(metricsId = 17161, metrics = true)
+@PluginProperties(resourceId = 107198, metricsId = 17161, metrics = true)
 public class BukkitCommonPlugin extends BukkitPlugin implements Listener {
 
     private BukkitCommonConfiguration configuration;
