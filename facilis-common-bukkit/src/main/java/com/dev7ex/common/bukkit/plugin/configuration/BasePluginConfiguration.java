@@ -1,5 +1,7 @@
 package com.dev7ex.common.bukkit.plugin.configuration;
 
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
+
 import java.util.List;
 
 /**
@@ -13,6 +15,10 @@ public interface BasePluginConfiguration {
     String getPrefix();
 
     String getNoPermissionMessage();
+
+    DefaultArtifactVersion getVersion();
+
+    String getVersionAsString();
 
     String getString(final String path);
 

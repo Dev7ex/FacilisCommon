@@ -2,6 +2,8 @@ package com.dev7ex.common.bukkit.plugin.configuration;
 
 import com.dev7ex.common.bukkit.configuration.ConfigurationBase;
 
+import org.apache.maven.artifact.versioning.ArtifactVersion;
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
@@ -21,6 +23,22 @@ public abstract class DefaultPluginConfiguration extends ConfigurationBase imple
     public void load() {
         super.copyFile();
         super.loadFile();
+    }
+
+    @Override
+    public DefaultArtifactVersion getVersion() {
+        return new DefaultArtifactVersion(Objects.requireNonNull(this.getVersionAsString()));
+    }
+
+    @Override
+    public String getVersionAsString() {
+        return super.getFileConfiguration().getString("config-version")
+                .replaceAll("SNAPSHOT", "")
+                .replaceAll("RELEASE", "");
+    }
+
+    public boolean isNewestVersion(final ArtifactVersion currentVersion) {
+        return (this.getVersion().compareTo(currentVersion) >= 0);
     }
 
     @Override
