@@ -83,7 +83,7 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener {
             return;
         }
 
-        player.sendMessage(this.configuration.getString("settings.update-message"));
+        player.sendMessage(this.configuration.getString("settings.update-message").replaceAll("%prefix%", this.configuration.getPrefix()));
     }
 
     public void checkUpdate() {
