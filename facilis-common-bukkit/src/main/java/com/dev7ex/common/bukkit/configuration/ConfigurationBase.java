@@ -26,10 +26,9 @@ public abstract class ConfigurationBase {
         }
         this.plugin = plugin;
 
-        if (!plugin.getDataFolder().exists()) {
-            plugin.getDataFolder().mkdirs();
+        if (!this.plugin.getDataFolder().exists()) {
+            this.plugin.getDataFolder().mkdirs();
         }
-
         this.configurationFile = new File(plugin.getDataFolder() + File.separator + this.getFileName());
         this.yamlConfiguration = YamlConfiguration.loadConfiguration(this.configurationFile);
     }
