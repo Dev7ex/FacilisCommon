@@ -13,8 +13,11 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -38,7 +41,7 @@ public class PluginBase extends JavaPlugin {
         super.getDataFolder().mkdirs();
     }
 
-    public void createSubFolder(final String folderName) {
+    public void createSubFolder(@NotNull final String folderName) {
         final File subFolder = new File(this.getDataFolder().getPath() + File.separator + folderName);
         if (!subFolder.exists()) {
             subFolder.mkdirs();
@@ -49,17 +52,21 @@ public class PluginBase extends JavaPlugin {
         this.metrics = new Metrics(this, this.getMetricsId());
     }
 
-    public File getSubFolder(final String folderName) {
+    public File getSubFolder(@NotNull final String folderName) {
         return new File(this.getDataFolder().getPath() + File.separator + folderName);
     }
 
-    public PluginCommand registerCommand(final String command) {
+    public PluginCommand registerCommand(@NotNull final String command) {
         return super.getServer().getPluginCommand(command);
     }
 
-    public void registerCommand(final BukkitCommand bukkitCommand) {
+    public void registerCommand(@NotNull final BukkitCommand bukkitCommand) {
         final PluginCommand pluginCommand = super.getCommand(bukkitCommand.getName());
-        pluginCommand.setExecutor(new BukkitCommandExecutor(bukkitCommand));
+        Objects.requireNonNull(pluginCommand).setExecutor(new BukkitCommandExecutor(bukkitCommand));
+
+        if((bukkitCommand.getAliases()) != null && (bukkitCommand.getAliases().length > 0)) {
+            pluginCommand.setAliases(Arrays.asList(bukkitCommand.getAliases()));
+        }
 
         if (!(bukkitCommand instanceof TabCompleter)) {
             return;
@@ -67,21 +74,21 @@ public class PluginBase extends JavaPlugin {
         pluginCommand.setTabCompleter((TabCompleter) bukkitCommand);
     }
 
-    public void registerListener(final Listener listener) {
+    public void registerListener(@NotNull final Listener listener) {
         super.getServer().getPluginManager().registerEvents(listener, this);
     }
 
-    public void registerListenerIf(final Listener listener, final Predicate<Boolean> predicate) {
+    public void registerListenerIf(@NotNull final Listener listener, @NotNull final Predicate<Boolean> predicate) {
         if (predicate.test(true)) {
             super.getServer().getPluginManager().registerEvents(listener, this);
         }
     }
 
-    public void registerService(final PluginService pluginService) {
+    public void registerService(@NotNull final PluginService pluginService) {
         this.serviceManager.registerService(pluginService);
     }
 
-    public void registerServiceIf(final PluginService pluginService, final Predicate<Boolean> predicate) {
+    public void registerServiceIf(@NotNull final PluginService pluginService, @NotNull final Predicate<Boolean> predicate) {
         if (predicate.test(false)) {
             return;
         }
@@ -97,7 +104,11 @@ public class PluginBase extends JavaPlugin {
     }
 
     public boolean hasMetrics() {
-        return (this.getClass().isAnnotationPresent(PluginProperties.class)) || (this.getClass().getAnnotation(PluginProperties.class).metrics());
+        return (!this.getClass().isAnnotationPresent(PluginProperties.class)) || (this.getClass().getAnnotation(PluginProperties.class).metrics());
+    }
+
+    public String getRequiredFacilisVersion() {
+        return this.getClass().getAnnotation(PluginProperties.class).requiredFacilisVersion();
     }
 
 }

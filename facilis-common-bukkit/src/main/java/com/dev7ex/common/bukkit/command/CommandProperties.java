@@ -15,6 +15,8 @@ public @interface CommandProperties {
 
     String name();
 
+    String[] aliases() default "";
+
     String permission() default "";
 
 }

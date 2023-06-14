@@ -4,7 +4,9 @@ import com.dev7ex.common.bukkit.plugin.BukkitPlugin;
 import com.dev7ex.common.bukkit.plugin.configuration.BasePluginConfiguration;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,14 +22,14 @@ public abstract class BukkitCommand {
 
     private final BukkitPlugin plugin;
     private final Map<String, BukkitCommand> subCommands = new HashMap<>();
-    private final String[] aliases = new String[]{};
 
-    public BukkitCommand(final BukkitPlugin plugin) {
+    public BukkitCommand(@NotNull final BukkitPlugin plugin) {
         this.plugin = plugin;
     }
 
-    public abstract boolean execute(final CommandSender commandSender, final String[] arguments);
+    public abstract boolean execute(@NotNull final CommandSender commandSender, @NotNull final String[] arguments);
 
+    @Deprecated
     public boolean execute(final BukkitCommand bukkitCommand, final CommandSender commandSender, final String[] arguments) {
         if ((!this.getPermission().isBlank()) && (!commandSender.hasPermission(this.getPermission()))) {
             commandSender.sendMessage(this.plugin.getConfiguration().getNoPermissionMessage());
@@ -49,6 +51,10 @@ public abstract class BukkitCommand {
 
     public String getName() {
         return this.getClass().getAnnotation(CommandProperties.class).name();
+    }
+
+    public String[] getAliases() {
+        return this.getClass().getAnnotation(CommandProperties.class).aliases();
     }
 
     public String getPermission() {
