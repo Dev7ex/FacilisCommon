@@ -1,6 +1,7 @@
 package com.dev7ex.common.bukkit.plugin.configuration;
 
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -20,40 +21,40 @@ public interface BasePluginConfiguration {
 
     String getVersionAsString();
 
-    String getString(final String path);
+    String getString(@NotNull final String path);
 
-    long getLong(final String path);
+    long getLong(@NotNull final String path);
 
-    int getInteger(final String path);
+    int getInteger(@NotNull final String path);
 
-    short getShort(final String path);
+    short getShort(@NotNull final String path);
 
-    byte getByte(final String path);
+    byte getByte(@NotNull final String path);
 
-    double getDouble(final String path);
+    double getDouble(@NotNull final String path);
 
-    float getFloat(final String path);
+    float getFloat(@NotNull final String path);
 
-    boolean getBoolean(final String path);
+    boolean getBoolean(@NotNull final String path);
 
-    char getCharacter(final String path);
+    char getCharacter(@NotNull final String path);
 
-    List<String> getStringList(final String path);
+    List<String> getStringList(@NotNull final String path);
 
-    List<Long> getLongList(final String path);
+    List<Long> getLongList(@NotNull final String path);
 
-    List<Integer> getIntegerList(final String path);
+    List<Integer> getIntegerList(@NotNull final String path);
 
-    List<Short> getShortList(final String path);
+    List<Short> getShortList(@NotNull final String path);
 
-    List<Byte> getByteList(final String path);
+    List<Byte> getByteList(@NotNull final String path);
 
-    List<Double> getDoubleList(final String path);
+    List<Double> getDoubleList(@NotNull final String path);
 
-    List<Float> getFloatList(final String path);
+    List<Float> getFloatList(@NotNull final String path);
 
-    List<Boolean> getBooleanList(final String path);
+    List<Boolean> getBooleanList(@NotNull final String path);
 
-    List<Character> getCharacterList(final String path);
+    List<Character> getCharacterList(@NotNull final String path);
 
 }
