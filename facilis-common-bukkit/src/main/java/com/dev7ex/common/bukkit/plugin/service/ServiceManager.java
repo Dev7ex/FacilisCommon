@@ -2,6 +2,8 @@ package com.dev7ex.common.bukkit.plugin.service;
 
 import org.bukkit.plugin.Plugin;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import java.util.Map;
  */
 public class ServiceManager {
 
+    private final Deque<PluginService> serviceDeque = new ArrayDeque<>();
     private final Map<String, PluginService> pluginServices = new HashMap<>();
     private final Plugin plugin;
 
@@ -19,6 +22,7 @@ public class ServiceManager {
     }
 
     public void registerService(final PluginService pluginService) {
+        this.serviceDeque.add(pluginService);
         this.pluginServices.put(pluginService.getName(), pluginService);
     }
 
@@ -27,7 +31,9 @@ public class ServiceManager {
     }
 
     public void onEnable() {
-        this.pluginServices.values().forEach(PluginService::onEnable);
+        while (!this.serviceDeque.isEmpty()) {
+            this.serviceDeque.pollFirst().onEnable();
+        }
     }
 
     public void onDisable() {

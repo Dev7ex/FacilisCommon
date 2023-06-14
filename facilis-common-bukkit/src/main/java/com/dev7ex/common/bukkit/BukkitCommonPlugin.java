@@ -1,8 +1,10 @@
 package com.dev7ex.common.bukkit;
 
 import com.dev7ex.common.bukkit.plugin.BukkitPlugin;
-import com.dev7ex.common.bukkit.plugin.PluginProperties;
 
+import com.dev7ex.common.bukkit.plugin.PluginProperties;
+import com.dev7ex.common.bukkit.plugin.service.PluginServiceOption;
+import com.dev7ex.common.bukkit.plugin.service.PluginServiceOrder;
 import lombok.AccessLevel;
 import lombok.Getter;
 
@@ -17,7 +19,9 @@ import org.bukkit.event.server.PluginEnableEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * @author Dev7ex
@@ -42,27 +46,45 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener {
         this.checkUpdate();
     }
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void handlePluginEnable(final PluginEnableEvent event) {
         if (!(event.getPlugin() instanceof BukkitPlugin)) {
             return;
         }
         final BukkitPlugin plugin = (BukkitPlugin) event.getPlugin();
 
-        plugin.registerServices();
+        final PluginServiceOrder serviceOrder = plugin.getClass().getAnnotation(PluginServiceOrder.class);
 
+        if (!plugin.getClass().isAnnotationPresent(PluginServiceOrder.class)) {
+            plugin.registerCommands();
+            plugin.registerListeners();
+            plugin.registerServices();
+
+        } else {
+            Arrays.stream(serviceOrder.options()).forEach(option -> {
+                switch (option) {
+                    case COMMANDS:
+                        plugin.registerCommands();
+                        break;
+
+                    case LISTENERS:
+                        plugin.registerListeners();
+                        break;
+
+                    case SERVICES:
+                        plugin.registerServices();
+                }
+            });
+        }
         plugin.getServiceManager().onEnable();
-
-        plugin.registerCommands();
-        plugin.registerListeners();
 
         if (plugin.hasMetrics()) {
             plugin.enableMetrics();
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-    public void handlePluginEnable(final PluginDisableEvent event) {
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    public void handlePluginDisable(final PluginDisableEvent event) {
         if (!(event.getPlugin() instanceof BukkitPlugin)) {
             return;
         }
