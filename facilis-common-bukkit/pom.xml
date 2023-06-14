@@ -7,7 +7,7 @@
     <parent>
         <artifactId>facilis-common</artifactId>
         <groupId>com.dev7ex</groupId>
-        <version>1.0.0-b002-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <name>FacilisCommon-Bukkit</name>
@@ -20,6 +20,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${dependency.annotations.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.dev7ex</groupId>
             <artifactId>facilis-common-core</artifactId>
             <version>${project.version}</version>
@@ -29,7 +36,7 @@
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-api</artifactId>
-            <version>4.12.0</version>
+            <version>${dependency.adventure-api}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -57,7 +64,7 @@
 
     <build>
         <finalName>${project.name}-${project.version}</finalName>
-        <defaultGoal>clean package</defaultGoal>
+        <defaultGoal>clean install</defaultGoal>
 
         <resources>
             <resource>
