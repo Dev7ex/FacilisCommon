@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.List;
@@ -153,7 +154,6 @@ public class Cuboid implements Cloneable, Iterable<Block> {
                 throw new IllegalArgumentException("Invalid direction " + regionDirection);
         }
     }
-
 
     public final boolean isOnlyContaining(final Material material) {
         for(Block b : this) {
