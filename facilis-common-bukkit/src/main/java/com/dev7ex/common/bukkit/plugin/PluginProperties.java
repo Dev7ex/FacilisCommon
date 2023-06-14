@@ -19,4 +19,6 @@ public @interface PluginProperties {
 
     boolean metrics() default false;
 
+    String requiredFacilisVersion() default "1.0.0-SNAPSHOT";
+
 }
