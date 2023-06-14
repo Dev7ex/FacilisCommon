@@ -1,6 +1,9 @@
 package com.dev7ex.common.bukkit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Dev7ex
@@ -24,6 +27,16 @@ public class BukkitCommon {
      */
     public static String getMinecraftServerVersion() {
         return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+    }
+
+    public static CommandSender getCommandSender(@NotNull final String name) {
+        for (final Player player : Bukkit.getOnlinePlayers()) {
+            if (!player.getName().equalsIgnoreCase(name)) {
+                continue;
+            }
+            return player;
+        }
+        return Bukkit.getConsoleSender();
     }
 
 }
