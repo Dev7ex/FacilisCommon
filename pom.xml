@@ -7,11 +7,12 @@
     <groupId>com.dev7ex</groupId>
     <artifactId>facilis-common</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-b002-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <modules>
         <module>facilis-common-bukkit</module>
         <module>facilis-common-core</module>
+        <module>facilis-common-bungeecord</module>
     </modules>
 
     <properties>
@@ -19,17 +20,17 @@
         <maven.compiler.target>${project.source.version}</maven.compiler.target>
 
         <project.source.version>16</project.source.version>
-        <project.version>1.0.0-b002-SNAPSHOT</project.version>
+        <project.version>1.0.0-b003-SNAPSHOT</project.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
 
         <dependency-maven-artifact-version>3.6.0</dependency-maven-artifact-version>
         <dependency.bstats.version>3.0.0</dependency.bstats.version>
-        <dependency.adventure-api>4.12.0</dependency.adventure-api>
-        <dependency.annotations.version>23.0.0</dependency.annotations.version>
+        <dependency.adventure-api>4.13.0</dependency.adventure-api>
+        <dependency.annotations.version>24.0.1</dependency.annotations.version>
         <dependency.gson.version>2.10</dependency.gson.version>
-        <dependency.lombok.version>1.18.24</dependency.lombok.version>
+        <dependency.lombok.version>1.18.26</dependency.lombok.version>
         <dependency.spigot.version>1.19-R0.1-SNAPSHOT</dependency.spigot.version>
         <dependency.bungeecord.version>1.19-R0.1-SNAPSHOT</dependency.bungeecord.version>
         <dependency-commons-lang3.version>3.12.0</dependency-commons-lang3.version>
