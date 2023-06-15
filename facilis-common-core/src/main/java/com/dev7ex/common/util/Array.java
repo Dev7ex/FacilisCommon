@@ -1,6 +1,6 @@
 package com.dev7ex.common.util;
 
-import java.lang.annotation.Native;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Dev7ex
@@ -11,7 +11,7 @@ public class Array<T> {
     private final T[] objects;
     private int nextIndex = 0;
 
-    public Array(final T[] objects) {
+    public Array(@NotNull final T[] objects) {
         this.objects = objects;
     }
 
