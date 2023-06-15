@@ -1,6 +1,7 @@
 # FacilisCommon
 ![SpigotMC Downloads](https://img.shields.io/spiget/downloads/107198?label=Downloads)
 ![GitHub](https://img.shields.io/github/license/dev7ex/faciliscommon)
+[![CodeFactor](https://www.codefactor.io/repository/github/dev7ex/faciliscommon/badge)](https://www.codefactor.io/repository/github/dev7ex/faciliscommon)
 
 ## What is FacilisCommon?
 
