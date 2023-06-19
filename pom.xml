@@ -20,7 +20,7 @@
         <maven.compiler.target>${project.source.version}</maven.compiler.target>
 
         <project.source.version>16</project.source.version>
-        <project.version>1.0.0-b003-SNAPSHOT</project.version>
+        <project.version>1.0.1-SNAPSHOT</project.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
