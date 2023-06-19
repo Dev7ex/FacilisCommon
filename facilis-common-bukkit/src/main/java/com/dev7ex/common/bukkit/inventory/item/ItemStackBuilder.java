@@ -61,6 +61,11 @@ public class ItemStackBuilder {
         return this;
     }
 
+    public ItemStackBuilder setCustomModelData(final int customModelData) {
+        this.editItemMeta(itemMeta -> itemMeta.setCustomModelData(customModelData));
+        return this;
+    }
+
     public ItemStackBuilder addEnchantment(@NotNull final Enchantment enchantment, final int level) {
         if ((!enchantment.canEnchantItem(this.itemStack)) || (level > enchantment.getMaxLevel())) {
             this.itemStack.addUnsafeEnchantment(enchantment, level);
