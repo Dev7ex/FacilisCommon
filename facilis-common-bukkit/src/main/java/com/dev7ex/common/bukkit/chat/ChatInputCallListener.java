@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ChatInputCallListener implements Listener {
 
-    private ChatInputCallService chatInputCallService;
+    private final ChatInputCallService chatInputCallService;
 
     public ChatInputCallListener(@NotNull final ChatInputCallService chatInputCallService) {
         this.chatInputCallService = chatInputCallService;
