@@ -8,11 +8,14 @@
     <artifactId>facilis-common</artifactId>
     <packaging>pom</packaging>
     <version>1.0.1-SNAPSHOT</version>
+    <name>FacilisCommon</name>
+    <url>https://github.com/Dev7ex/FacilisCommon</url>
 
     <modules>
         <module>facilis-common-bukkit</module>
         <module>facilis-common-core</module>
         <module>facilis-common-bungeecord</module>
+        <module>facilis-common-velocity</module>
     </modules>
 
     <properties>
@@ -35,6 +38,7 @@
         <dependency.bungeecord.version>1.19-R0.1-SNAPSHOT</dependency.bungeecord.version>
         <dependency-commons-lang3.version>3.12.0</dependency-commons-lang3.version>
         <dependency-commons-io.version>2.10.0</dependency-commons-io.version>
+        <dependency.velocity-api.version>3.1.1</dependency.velocity-api.version>
     </properties>
 
 </project>
