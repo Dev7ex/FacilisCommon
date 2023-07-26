@@ -5,6 +5,7 @@ import com.dev7ex.common.bukkit.plugin.BukkitPlugin;
 import com.dev7ex.common.bukkit.plugin.PluginProperties;
 import com.dev7ex.common.bukkit.plugin.service.PluginServiceOption;
 import com.dev7ex.common.bukkit.plugin.service.PluginServiceOrder;
+import com.dev7ex.common.bukkit.util.UpdateChecker;
 import lombok.AccessLevel;
 import lombok.Getter;
 
@@ -32,7 +33,7 @@ import java.util.stream.Collectors;
 public class BukkitCommonPlugin extends BukkitPlugin implements Listener {
 
     private BukkitCommonConfiguration configuration;
-    private boolean updateAvailable = false;
+    private final UpdateChecker updateChecker = new UpdateChecker(this);
 
     @Override
     public void onLoad() {
@@ -43,7 +44,7 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener {
     @Override
     public void onEnable() {
         super.registerListener(this);
-        this.checkUpdate();
+        this.updateChecker.getVersion((updateAvailable) -> {});
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -101,37 +102,15 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener {
             return;
         }
 
-        if (!this.updateAvailable) {
+        if (!this.updateChecker.isUpdateAvailable()) {
             return;
         }
-
-        player.sendMessage(this.configuration.getString("settings.update-message").replaceAll("%prefix%", this.configuration.getPrefix()));
-    }
-
-    public void checkUpdate() {
-        super.getServer().getScheduler().runTaskAsynchronously(this, () -> {
-
-            try (final InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + super.getResourceId()).openStream()) {
-                try (final Scanner scanner = new Scanner(inputStream)) {
-
-                    if (scanner.hasNext()) {
-                        final String currentVersion = this.getDescription().getVersion();
-                        final String newVersion = scanner.next();
-                        if (!currentVersion.equalsIgnoreCase(newVersion)) {
-                            this.updateAvailable = true;
-                            super.getServer().getScheduler().runTask(this, () -> {
-                                super.getLogger().info("There is a new update available.");
-                            });
-
-                        }
-                    }
-                }
-            } catch (final IOException exception) {
-                super.getServer().getScheduler().runTask(this, () -> {
-                    super.getLogger().info("Unable to check for updates: " + exception.getMessage());
-                });
-            }
-        });
+        player.sendMessage(this.configuration.getString("settings.update-message-player")
+                .replaceAll("%prefix%", this.configuration.getPrefix()));
+        player.sendMessage(this.configuration.getString("settings.update-message-version-player")
+                .replaceAll("%prefix%", this.configuration.getPrefix())
+                .replaceAll("%current_version%", super.getDescription().getVersion())
+                .replaceAll("%new_version%", this.updateChecker.getNewVersion()));
     }
 
 }
