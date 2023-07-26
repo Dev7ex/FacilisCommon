@@ -33,9 +33,7 @@ public abstract class DefaultPluginConfiguration extends ConfigurationBase imple
 
     @Override
     public String getVersionAsString() {
-        return super.getFileConfiguration().getString("config-version")
-                .replaceAll("SNAPSHOT", "")
-                .replaceAll("RELEASE", "");
+        return super.getFileConfiguration().getString("config-version");
     }
 
     public boolean isNewestVersion(final ArtifactVersion currentVersion) {
