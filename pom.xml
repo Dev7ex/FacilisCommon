@@ -7,7 +7,7 @@
     <groupId>com.dev7ex</groupId>
     <artifactId>facilis-common</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>FacilisCommon</name>
     <url>https://github.com/Dev7ex/FacilisCommon</url>
 
@@ -23,7 +23,7 @@
         <maven.compiler.target>${project.source.version}</maven.compiler.target>
 
         <project.source.version>16</project.source.version>
-        <project.version>1.0.1-SNAPSHOT</project.version>
+        <project.version>1.0.2-SNAPSHOT</project.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
