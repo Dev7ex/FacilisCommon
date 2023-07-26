@@ -1,5 +1,7 @@
 package com.dev7ex.common.bukkit.configuration;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.SneakyThrows;
 
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,10 +15,11 @@ import java.nio.file.Files;
  * @author Dev7ex
  * @since 10.07.2022
  */
+@Getter(AccessLevel.PUBLIC)
 public abstract class ConfigurationBase {
 
     private File configurationFile;
-    private YamlConfiguration yamlConfiguration;
+    private YamlConfiguration fileConfiguration;
     private final Plugin plugin;
 
     @SneakyThrows
@@ -30,7 +33,7 @@ public abstract class ConfigurationBase {
             this.plugin.getDataFolder().mkdirs();
         }
         this.configurationFile = new File(plugin.getDataFolder() + File.separator + this.getFileName());
-        this.yamlConfiguration = YamlConfiguration.loadConfiguration(this.configurationFile);
+        this.fileConfiguration = YamlConfiguration.loadConfiguration(this.configurationFile);
     }
 
     @SneakyThrows
@@ -54,24 +57,16 @@ public abstract class ConfigurationBase {
     }
 
     public void loadFile() {
-        this.yamlConfiguration = YamlConfiguration.loadConfiguration(this.configurationFile);
+        this.fileConfiguration = YamlConfiguration.loadConfiguration(this.configurationFile);
     }
 
     @SneakyThrows
     public void saveFile() {
-        this.yamlConfiguration.save(this.configurationFile);
+        this.fileConfiguration.save(this.configurationFile);
     }
 
     public final String getFileName() {
         return this.getClass().getAnnotation(ConfigurationProperties.class).fileName();
-    }
-
-    public File getConfigurationFile() {
-        return this.configurationFile;
-    }
-
-    public YamlConfiguration getFileConfiguration() {
-        return this.yamlConfiguration;
     }
 
 }
