@@ -14,7 +14,18 @@ import org.jetbrains.annotations.NotNull;
 @ConfigurationProperties(fileName = "config.yml")
 public class BukkitCommonConfiguration extends DefaultPluginConfiguration {
 
+    public static String VERSION = "1.0.2-SNAPSHOT";
+
     public BukkitCommonConfiguration(@NotNull final Plugin plugin) {
         super(plugin);
     }
+
+    @Override
+    public void load() {
+        if (!super.getVersionAsString().equalsIgnoreCase(BukkitCommonConfiguration.VERSION)) {
+            super.deleteFile();
+        }
+        super.load();
+    }
+
 }
