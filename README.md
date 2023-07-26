@@ -14,7 +14,6 @@ The goal of this project is to make plugin writing even easier and more elegant
 ## Developer
 
 ```maven
-
         <dependency>
             <groupId>com.dev7ex</groupId>
             <artifactId>facilis-common-bukkit</artifactId>
