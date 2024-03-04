@@ -6,9 +6,12 @@ import java.util.*;
  * @author Dev7ex
  * @since 02.11.2020
  */
+@Deprecated
 public class ParsedMap<K, V> extends HashMap<K, V> {
 
-    public ParsedMap() {}
+    public ParsedMap() {
+
+    }
 
     public ParsedMap(final int initialCapacity) {
         super(initialCapacity);
