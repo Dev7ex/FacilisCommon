@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Dev7ex
  * @since 26.03.2023
  */
+@Deprecated
 public class Array<T> {
 
     private final T[] objects;
