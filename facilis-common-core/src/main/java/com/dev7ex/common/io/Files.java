@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
  * @author Dev7ex
  * @since 18.07.2022
  */
+@Deprecated
 public class Files {
 
     private Files() {}
