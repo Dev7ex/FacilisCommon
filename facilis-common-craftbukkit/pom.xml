@@ -7,15 +7,15 @@
     <parent>
         <artifactId>facilis-common</artifactId>
         <groupId>com.dev7ex</groupId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <name>FacilisCommon-CraftBukkit</name>
     <artifactId>facilis-common-craftbukkit</artifactId>
 
     <properties>
-        <maven.compiler.source>18</maven.compiler.source>
-        <maven.compiler.target>18</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
 </project>
