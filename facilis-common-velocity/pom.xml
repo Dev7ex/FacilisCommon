@@ -7,7 +7,7 @@
     <parent>
         <artifactId>facilis-common</artifactId>
         <groupId>com.dev7ex</groupId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <name>FacilisCommon-Velocity</name>
@@ -29,7 +29,7 @@
         <dependency>
             <groupId>com.velocitypowered</groupId>
             <artifactId>velocity-api</artifactId>
-            <version>${dependency.velocity-api.version}</version>
+            <version>${dependency.velocity.api.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
