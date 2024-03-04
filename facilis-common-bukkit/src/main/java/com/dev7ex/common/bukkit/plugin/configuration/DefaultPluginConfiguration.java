@@ -1,10 +1,7 @@
 package com.dev7ex.common.bukkit.plugin.configuration;
 
-import com.dev7ex.common.bukkit.configuration.ConfigurationBase;
-
-import org.apache.maven.artifact.versioning.ArtifactVersion;
-import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
-import org.bukkit.plugin.Plugin;
+import com.dev7ex.common.io.file.configuration.Configuration;
+import com.dev7ex.common.io.file.configuration.ConfigurationHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -14,30 +11,16 @@ import java.util.Objects;
  * @author Dev7ex
  * @since 16.12.2022
  */
-public abstract class DefaultPluginConfiguration extends ConfigurationBase implements BasePluginConfiguration {
+public abstract class DefaultPluginConfiguration extends Configuration implements BasePluginConfiguration {
 
-    public DefaultPluginConfiguration(@NotNull final Plugin plugin) {
-        super(plugin);
+    public DefaultPluginConfiguration(@NotNull final ConfigurationHolder configurationHolder) {
+        super(configurationHolder);
     }
 
     @Override
     public void load() {
         super.copyFile();
         super.loadFile();
-    }
-
-    @Override
-    public DefaultArtifactVersion getVersion() {
-        return new DefaultArtifactVersion(Objects.requireNonNull(this.getVersionAsString()));
-    }
-
-    @Override
-    public String getVersionAsString() {
-        return super.getFileConfiguration().getString("config-version");
-    }
-
-    public boolean isNewestVersion(final ArtifactVersion currentVersion) {
-        return (this.getVersion().compareTo(currentVersion) >= 0);
     }
 
     @Override
@@ -131,7 +114,7 @@ public abstract class DefaultPluginConfiguration extends ConfigurationBase imple
     }
 
     public List<Character> getCharacterList(@NotNull final String path){
-        return this.getFileConfiguration().getCharacterList(path);
+        return this.getFileConfiguration().getCharList(path);
     }
 
 }

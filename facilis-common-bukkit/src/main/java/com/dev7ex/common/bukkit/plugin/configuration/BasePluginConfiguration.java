@@ -1,6 +1,5 @@
 package com.dev7ex.common.bukkit.plugin.configuration;
 
-import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -16,10 +15,6 @@ public interface BasePluginConfiguration {
     String getPrefix();
 
     String getNoPermissionMessage();
-
-    DefaultArtifactVersion getVersion();
-
-    String getVersionAsString();
 
     String getString(@NotNull final String path);
 

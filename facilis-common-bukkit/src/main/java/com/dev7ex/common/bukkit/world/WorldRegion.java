@@ -1,7 +1,6 @@
 package com.dev7ex.common.bukkit.world;
 
 import com.dev7ex.common.bukkit.world.cuboid.Cuboid;
-
 import org.bukkit.Location;
 
 /**

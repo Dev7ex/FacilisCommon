@@ -7,7 +7,7 @@
     <parent>
         <artifactId>facilis-common</artifactId>
         <groupId>com.dev7ex</groupId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <name>FacilisCommon-BungeeCord</name>
@@ -53,13 +53,6 @@
             <artifactId>bungeecord-api</artifactId>
             <version>${dependency.bungeecord.version}</version>
             <type>javadoc</type>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-artifact</artifactId>
-            <version>${dependency-maven-artifact-version}</version>
             <scope>provided</scope>
         </dependency>
 

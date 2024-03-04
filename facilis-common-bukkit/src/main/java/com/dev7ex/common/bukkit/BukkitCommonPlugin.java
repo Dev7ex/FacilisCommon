@@ -1,14 +1,14 @@
 package com.dev7ex.common.bukkit;
 
 import com.dev7ex.common.bukkit.plugin.BukkitPlugin;
-
-import com.dev7ex.common.bukkit.plugin.PluginProperties;
-import com.dev7ex.common.bukkit.plugin.service.PluginServiceOption;
-import com.dev7ex.common.bukkit.plugin.service.PluginServiceOrder;
+import com.dev7ex.common.bukkit.plugin.ConfigurablePlugin;
+import com.dev7ex.common.bukkit.plugin.DatabasePlugin;
+import com.dev7ex.common.bukkit.plugin.PluginIdentification;
+import com.dev7ex.common.bukkit.plugin.statistic.PluginStatistic;
+import com.dev7ex.common.bukkit.plugin.statistic.PluginStatisticProperties;
 import com.dev7ex.common.bukkit.util.UpdateChecker;
 import lombok.AccessLevel;
 import lombok.Getter;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,23 +17,18 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-
 /**
  * @author Dev7ex
  * @since 04.01.2022
  */
 @Getter(AccessLevel.PUBLIC)
-@PluginProperties(resourceId = 107198, metricsId = 17161, metrics = true)
-public class BukkitCommonPlugin extends BukkitPlugin implements Listener {
+@PluginStatisticProperties(enabled = true, identification = 17161)
+@PluginIdentification(spigotResourceId = 107198)
+public class BukkitCommonPlugin extends BukkitPlugin implements Listener, ConfigurablePlugin {
 
     private BukkitCommonConfiguration configuration;
     private final UpdateChecker updateChecker = new UpdateChecker(this);
+    private PluginStatistic statistic;
 
     @Override
     public void onLoad() {
@@ -47,40 +42,39 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener {
         this.updateChecker.getVersion((updateAvailable) -> {});
     }
 
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
     public void handlePluginEnable(final PluginEnableEvent event) {
         if (!(event.getPlugin() instanceof BukkitPlugin)) {
             return;
         }
-        final BukkitPlugin plugin = (BukkitPlugin) event.getPlugin();
 
-        final PluginServiceOrder serviceOrder = plugin.getClass().getAnnotation(PluginServiceOrder.class);
+        try {
+            final BukkitPlugin plugin = (BukkitPlugin) event.getPlugin();
 
-        if (!plugin.getClass().isAnnotationPresent(PluginServiceOrder.class)) {
             plugin.registerCommands();
             plugin.registerListeners();
-            plugin.registerServices();
+            plugin.registerModules();
 
-        } else {
-            Arrays.stream(serviceOrder.options()).forEach(option -> {
-                switch (option) {
-                    case COMMANDS:
-                        plugin.registerCommands();
-                        break;
+            if (super.hasStatistics()) {
+                final PluginStatisticProperties statisticProperties = super.getStatisticProperties();
 
-                    case LISTENERS:
-                        plugin.registerListeners();
-                        break;
-
-                    case SERVICES:
-                        plugin.registerServices();
+                if (!statisticProperties.enabled()) {
+                    return;
                 }
-            });
-        }
-        plugin.getServiceManager().onEnable();
+                this.statistic = new PluginStatistic(this, statisticProperties.identification());
+            }
 
-        if (plugin.hasMetrics()) {
-            plugin.enableMetrics();
+            if (super.hasDatabase()) {
+                final DatabasePlugin databasePlugin = (DatabasePlugin) this;
+                databasePlugin.onConnect();
+            }
+            plugin.getModuleManager().enableAllModules();
+
+        } catch (final Exception exception) {
+            super.getLogger().warning("This error was not triggered directly by FacilisCommon");
+            super.getLogger().warning("If you are sure that this error comes from FacilisCommon then write an issue on Github");
+            super.getLogger().info("https://github.com/Dev7ex/FacilisCommon/issues");
+            exception.printStackTrace();
         }
     }
 
@@ -91,7 +85,12 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener {
         }
         final BukkitPlugin plugin = (BukkitPlugin) event.getPlugin();
 
-        plugin.getServiceManager().onDisable();
+        if (super.hasDatabase()) {
+            final DatabasePlugin databasePlugin = (DatabasePlugin) plugin;
+            databasePlugin.onDisconnect();
+        }
+
+        super.getModuleManager().disableAllModules();
     }
 
     @EventHandler(priority = EventPriority.NORMAL)

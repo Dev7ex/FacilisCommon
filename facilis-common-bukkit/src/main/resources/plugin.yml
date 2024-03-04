@@ -4,10 +4,10 @@ database: false
 depend: []
 description: ${project.description}
 libraries:
-  - net.kyori:adventure-api:${dependency.adventure-api}
-  - org.apache.commons:commons-lang3:${dependency-commons-lang3.version}
-  - commons-io:commons-io:${dependency-commons-io.version}
-  - org.apache.maven:maven-artifact:${dependency-maven-artifact-version}
+  - net.kyori:adventure-api:${dependency.adventure.api.version}
+  - org.apache.commons:commons-lang3:${dependency.commons.lang3.version}
+  - commons-io:commons-io:${dependency.commons.io.version}
+  - org.apache.maven:maven-artifact:${dependency.maven.artifact.version}
 load: POSTWORLD
 loadbefore: []
 main: com.dev7ex.common.bukkit.BukkitCommonPlugin

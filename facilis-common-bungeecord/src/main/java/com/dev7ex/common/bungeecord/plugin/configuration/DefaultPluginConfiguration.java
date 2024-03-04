@@ -1,7 +1,9 @@
 package com.dev7ex.common.bungeecord.plugin.configuration;
 
-import com.dev7ex.common.bungeecord.configuration.ConfigurationBase;
-import net.md_5.bungee.api.plugin.Plugin;
+import com.dev7ex.common.bungeecord.plugin.ConfigurablePlugin;
+import com.dev7ex.common.io.file.configuration.Configuration;
+import lombok.AccessLevel;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -11,9 +13,10 @@ import java.util.Objects;
  * @author Dev7ex
  * @since 16.12.2022
  */
-public abstract class DefaultPluginConfiguration extends ConfigurationBase implements BasePluginConfiguration {
+@Getter(AccessLevel.PUBLIC)
+public abstract class DefaultPluginConfiguration extends Configuration implements BasePluginConfiguration {
 
-    public DefaultPluginConfiguration(@NotNull final Plugin plugin) {
+    public DefaultPluginConfiguration(@NotNull final ConfigurablePlugin plugin) {
         super(plugin);
     }
 
@@ -90,7 +93,7 @@ public abstract class DefaultPluginConfiguration extends ConfigurationBase imple
 
     @Override
     public List<Integer> getIntegerList(@NotNull final String path) {
-        return this.getFileConfiguration().getIntList(path);
+        return this.getFileConfiguration().getIntegerList(path);
     }
 
     public List<Short> getShortList(@NotNull final String path) {

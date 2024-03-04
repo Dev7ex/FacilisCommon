@@ -1,0 +1,139 @@
+package com.dev7ex.common.bungeecord.plugin;
+
+import com.dev7ex.common.bungeecord.command.ProxyCommand;
+import com.dev7ex.common.bungeecord.command.ProxyCommandExecutor;
+import com.dev7ex.common.bungeecord.plugin.module.PluginModule;
+import com.dev7ex.common.bungeecord.plugin.module.PluginModuleManager;
+import com.dev7ex.common.bungeecord.plugin.statistic.PluginStatisticProperties;
+import lombok.AccessLevel;
+import lombok.Getter;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.api.plugin.Plugin;
+import net.md_5.bungee.api.plugin.PluginManager;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.util.function.Predicate;
+
+/**
+ * @author Dev7ex
+ * @since 02.03.2024
+ */
+@Getter(AccessLevel.PUBLIC)
+public class BasePlugin extends Plugin {
+
+    private final PluginModuleManager moduleManager = new PluginModuleManager(this);
+    private final PluginManager pluginManager = ProxyServer.getInstance().getPluginManager();
+
+    public void registerCommands() {}
+
+    public void registerListeners() {}
+
+    public void registerModules() {}
+
+    /**
+     * Creates the data folder for the plugin if it does not exist.
+     * The data folder is a directory where the plugin stores its configuration
+     * files, data, or any other persistent information.
+     * If the folder already exists, this method does nothing.
+     * If the folder creation fails, an exception may be thrown.
+     *
+     * @author Dev7ex
+     * @since 1.0.3
+     */
+    public void createDataFolder() {
+        if (super.getDataFolder().exists()) {
+            return;
+        }
+        super.getDataFolder().mkdirs();
+    }
+
+    /**
+     * Creates a subfolder within the designated parent directory if it does not exist.
+     * The subfolder is a directory that resides inside a specified parent directory.
+     * If the subfolder already exists, this method does nothing.
+     *
+     * @author Dev7ex
+     * @since 1.0.3
+     */
+    public void createSubFolder(@NotNull final String folderName) {
+        final File subFolder = new File(this.getDataFolder().getPath() + File.separator + folderName);
+        if (subFolder.exists()) {
+            return;
+        }
+        subFolder.mkdirs();
+    }
+
+    /**
+     * Retrieves a subfolder within the designated parent directory.
+     * The subfolder is a directory that resides inside a specified parent directory.
+     * If the subfolder does not exist, this method returns null.
+     *
+     * @author Dev7ex
+     * @since 1.0.3
+     */
+    public File getSubFolder(@NotNull final String folderName) {
+        return new File(this.getDataFolder().getPath() + File.separator + folderName);
+    }
+
+    public void registerCommand(@NotNull final Command command) {
+        super.getProxy().getPluginManager().registerCommand(this, command);
+    }
+
+    public void registerCommandIf(@NotNull final Command command, final Predicate<Boolean> predicate) {
+        if (predicate.test(false)) {
+            return;
+        }
+        super.getProxy().getPluginManager().registerCommand(this, command);
+    }
+
+    public void registerCommand(@NotNull final ProxyCommand proxyCommand) {
+        super.getProxy().getPluginManager().registerCommand(this, new ProxyCommandExecutor(proxyCommand));
+    }
+
+    public void registerCommandIf(@NotNull final ProxyCommand proxyCommand, @NotNull final Predicate<Boolean> predicate) {
+        if (predicate.test(true)) {
+            super.getProxy().getPluginManager().registerCommand(this, new ProxyCommandExecutor(proxyCommand));
+        }
+    }
+
+    public void registerListener(@NotNull final Listener listener) {
+        ProxyServer.getInstance().getPluginManager().registerListener(this, listener);
+    }
+
+    public void registerListenerIf(@NotNull final Listener listener, @NotNull final Predicate<Boolean> predicate) {
+        if (predicate.test(true)) {
+            ProxyServer.getInstance().getPluginManager().registerListener(this, listener);
+        }
+    }
+
+    public void registerModule(@NotNull final PluginModule module) {
+        this.moduleManager.registerModule(module);
+    }
+
+    public void registerModuleIf(@NotNull final PluginModule module, @NotNull final Predicate<Boolean> predicate) {
+        if (predicate.test(false)) {
+            return;
+        }
+        this.moduleManager.registerModule(module);
+    }
+
+    public boolean hasStatistics() {
+        return this.getClass().isAnnotationPresent(PluginStatisticProperties.class);
+    }
+
+    public PluginStatisticProperties getStatisticProperties() {
+        return this.getClass().getAnnotation(PluginStatisticProperties.class);
+    }
+
+    public PluginIdentification getPluginIdentification() {
+        return this.getClass().getAnnotation(PluginIdentification.class);
+    }
+
+    public boolean hasDatabase() {
+        return this.getClass().isAssignableFrom(DatabasePlugin.class);
+    }
+
+}

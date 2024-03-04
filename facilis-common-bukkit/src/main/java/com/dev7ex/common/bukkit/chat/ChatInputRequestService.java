@@ -1,7 +1,6 @@
 package com.dev7ex.common.bukkit.chat;
 
-import com.dev7ex.common.bukkit.plugin.service.PluginService;
-
+import com.dev7ex.common.bukkit.plugin.module.PluginModule;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Dev7ex
  * @since 27.02.2023
  */
-public class ChatInputRequestService implements PluginService {
+public class ChatInputRequestService implements PluginModule {
 
     private final Map<UUID, ChatInputRequest> chatInputRequests = new HashMap<>();
     private final Lock reentrantLock = new ReentrantLock();

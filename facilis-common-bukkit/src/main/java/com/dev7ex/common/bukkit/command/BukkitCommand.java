@@ -1,12 +1,13 @@
 package com.dev7ex.common.bukkit.command;
 
 import com.dev7ex.common.bukkit.plugin.BukkitPlugin;
+import com.dev7ex.common.bukkit.plugin.ConfigurablePlugin;
 import com.dev7ex.common.bukkit.plugin.configuration.BasePluginConfiguration;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,55 +23,43 @@ public abstract class BukkitCommand {
 
     private final BukkitPlugin plugin;
     private final Map<String, BukkitCommand> subCommands = new HashMap<>();
+    private String[] aliases = new String[]{};
 
     public BukkitCommand(@NotNull final BukkitPlugin plugin) {
         this.plugin = plugin;
     }
 
-    public abstract boolean execute(@NotNull final CommandSender commandSender, @NotNull final String[] arguments);
+    public abstract void execute(@NotNull final CommandSender commandSender, @NotNull final String[] arguments);
 
-    @Deprecated
-    public boolean execute(final BukkitCommand bukkitCommand, final CommandSender commandSender, final String[] arguments) {
-        if ((!this.getPermission().isBlank()) && (!commandSender.hasPermission(this.getPermission()))) {
-            commandSender.sendMessage(this.plugin.getConfiguration().getNoPermissionMessage());
-            return true;
+    public void registerSubCommand(@NotNull final BukkitCommand proxyCommand) {
+        if((proxyCommand.getAliases()) != null && (proxyCommand.getAliases().length > 0)) {
+            Arrays.stream(proxyCommand.getAliases()).filter(alias -> !alias.isBlank()).forEach(aliases -> this.subCommands.put(aliases, proxyCommand));
         }
-        return bukkitCommand.execute(commandSender, arguments);
+        this.subCommands.put(proxyCommand.getName(), proxyCommand);
     }
 
-    public void registerSubCommand(final BukkitCommand bukkitCommand) {
-        if((bukkitCommand.getAliases()) != null && (bukkitCommand.getAliases().length == 0)) {
-            Arrays.stream(bukkitCommand.getAliases()).forEach(aliases -> this.subCommands.put(aliases, bukkitCommand));
-        }
-        this.subCommands.put(bukkitCommand.getName(), bukkitCommand);
-    }
-
-    public Optional<BukkitCommand> getSubCommand(final String name) {
+    public Optional<BukkitCommand> getSubCommand(@NotNull final String name) {
         return Optional.ofNullable(this.subCommands.get(name));
     }
 
-    public String getName() {
-        return this.getClass().getAnnotation(CommandProperties.class).name();
+    public @Nullable BukkitCommand getSubCommand(@NotNull final Class<? extends BukkitCommand> commandClazz) {
+        return this.subCommands.values().stream().filter(subCommand -> subCommand.getClass() == commandClazz).findFirst().orElseThrow();
     }
 
-    public String[] getAliases() {
-        return this.getClass().getAnnotation(CommandProperties.class).aliases();
+    public String getName() {
+        return this.getClass().getAnnotation(BukkitCommandProperties.class).name();
     }
 
     public String getPermission() {
-        return this.getClass().getAnnotation(CommandProperties.class).permission();
+        return this.getClass().getAnnotation(BukkitCommandProperties.class).permission();
+    }
+
+    public String[] getAliases() {
+        return this.getClass().getAnnotation(BukkitCommandProperties.class).aliases();
     }
 
     public <T extends BasePluginConfiguration> T getConfiguration() {
-        return this.plugin.getConfiguration();
-    }
-
-    public String getPrefix() {
-        return this.plugin.getConfiguration().getPrefix();
-    }
-
-    public String getNoPermissionMessage() {
-        return this.plugin.getConfiguration().getNoPermissionMessage();
+        return ((ConfigurablePlugin) this.plugin).getConfiguration();
     }
 
 }

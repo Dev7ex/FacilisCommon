@@ -20,10 +20,11 @@ public class BukkitCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull final CommandSender commandSender, @NotNull final Command command, @NotNull final String commandLabel, @NotNull final String[] arguments) {
         if ((!this.bukkitCommand.getPermission().isBlank()) && (!commandSender.hasPermission(this.bukkitCommand.getPermission()))) {
-            commandSender.sendMessage(this.bukkitCommand.getNoPermissionMessage());
+            commandSender.sendMessage(this.bukkitCommand.getConfiguration().getNoPermissionMessage());
             return true;
         }
-        return this.bukkitCommand.execute(commandSender, arguments);
+        this.bukkitCommand.execute(commandSender, arguments);
+        return true;
     }
 
 }

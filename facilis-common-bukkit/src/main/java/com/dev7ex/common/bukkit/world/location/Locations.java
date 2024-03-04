@@ -27,7 +27,7 @@ public class Locations {
     /**
      * @param location the location values be rounded
      * @param roundAxis if yaw and pitch should be rounded
-     * @return
+     * @return Location
      */
     public static Location roundLocation(final Location location, final boolean roundAxis) {
         final double x = Math.round(location.getX());
