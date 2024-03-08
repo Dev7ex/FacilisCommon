@@ -55,13 +55,13 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener, Config
             plugin.registerListeners();
             plugin.registerModules();
 
-            if (super.hasStatistics()) {
-                final PluginStatisticProperties statisticProperties = super.getStatisticProperties();
+            if (plugin.hasStatistics()) {
+                final PluginStatisticProperties statisticProperties = plugin.getStatisticProperties();
 
                 if (!statisticProperties.enabled()) {
                     return;
                 }
-                this.statistic = new PluginStatistic(this, statisticProperties.identification());
+                this.statistic = new PluginStatistic(plugin, statisticProperties.identification());
             }
 
             if (super.hasDatabase()) {

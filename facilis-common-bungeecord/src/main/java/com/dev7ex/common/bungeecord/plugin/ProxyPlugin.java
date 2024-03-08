@@ -22,8 +22,8 @@ public abstract class ProxyPlugin extends BasePlugin {
         this.registerListeners();
         this.registerModules();
 
-        if (super.hasStatistics()) {
-            final PluginStatisticProperties statisticProperties = super.getStatisticProperties();
+        if (this.hasStatistics()) {
+            final PluginStatisticProperties statisticProperties = this.getStatisticProperties();
 
             if (!statisticProperties.enabled()) {
                 return;
@@ -31,7 +31,7 @@ public abstract class ProxyPlugin extends BasePlugin {
             this.statistic = new PluginStatistic(this, statisticProperties.identification());
         }
 
-        if (super.hasDatabase()) {
+        if (this.hasDatabase()) {
             final DatabasePlugin databasePlugin = (DatabasePlugin) this;
             databasePlugin.onConnect();
         }
@@ -42,7 +42,7 @@ public abstract class ProxyPlugin extends BasePlugin {
     public void onDisable() {
         super.getModuleManager().disableAllModules();
 
-        if (super.hasDatabase()) {
+        if (this.hasDatabase()) {
             final DatabasePlugin databasePlugin = (DatabasePlugin) this;
             databasePlugin.onDisconnect();
         }
