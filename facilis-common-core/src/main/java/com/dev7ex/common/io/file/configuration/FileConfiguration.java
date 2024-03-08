@@ -1,6 +1,8 @@
 package com.dev7ex.common.io.file.configuration;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -10,18 +12,15 @@ public final class FileConfiguration {
     final Map<String, Object> self;
     private final FileConfiguration defaults;
 
-    public FileConfiguration()
-    {
-        this( null );
+    public FileConfiguration() {
+        this(null);
     }
 
-    public FileConfiguration(FileConfiguration defaults)
-    {
-        this( new LinkedHashMap<String, Object>(), defaults );
+    public FileConfiguration(@Nullable final FileConfiguration defaults) {
+        this(new LinkedHashMap<String, Object>(), defaults);
     }
 
-    FileConfiguration(Map<?, ?> map, FileConfiguration defaults)
-    {
+    FileConfiguration(@NotNull final Map<?, ?> map, @Nullable final FileConfiguration defaults) {
         this.self = new LinkedHashMap<>();
         this.defaults = defaults;
 
@@ -69,6 +68,19 @@ public final class FileConfiguration {
     {
         int index = path.indexOf( SEPARATOR );
         return ( index == -1 ) ? path : path.substring( index + 1 );
+    }
+
+    @Nullable
+    public <T extends Object> T getObject(@NotNull String path, @NotNull Class<T> clazz) {
+        Object def = getDefault(path);
+        return getObject(path, clazz, (def != null && clazz.isInstance(def)) ? clazz.cast(def) : null);
+    }
+
+    @Contract("_, _, !null -> !null")
+    @Nullable
+    public <T extends Object> T getObject(@NotNull String path, @NotNull Class<T> clazz, @Nullable T def) {
+        Object val = get(path, def);
+        return (val != null && clazz.isInstance(val)) ? clazz.cast(val) : def;
     }
 
     /*------------------------------------------------------------------------*/
