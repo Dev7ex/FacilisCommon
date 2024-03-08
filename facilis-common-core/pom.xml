@@ -7,7 +7,7 @@
     <parent>
         <artifactId>facilis-common</artifactId>
         <groupId>com.dev7ex</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.4-SNAPSHOT</version>
     </parent>
 
     <name>FacilisCommon-Core</name>
@@ -25,6 +25,14 @@
             <version>${dependency.annotations.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>${dependency.mongodb.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>org.projectlombok</groupId>

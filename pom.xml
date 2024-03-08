@@ -7,7 +7,7 @@
     <groupId>com.dev7ex</groupId>
     <artifactId>facilis-common</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
     <name>FacilisCommon</name>
     <description>Library for Minecraft</description>
     <url>https://github.com/Dev7ex/FacilisCommon</url>
@@ -25,13 +25,14 @@
         <maven.compiler.target>${project.source.version}</maven.compiler.target>
 
         <project.source.version>16</project.source.version>
-        <project.version>1.0.3-SNAPSHOT</project.version>
+        <project.version>1.0.4-SNAPSHOT</project.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
 
         <dependency.maven.artifact.version>3.6.0</dependency.maven.artifact.version>
         <dependency.bstats.version>3.0.0</dependency.bstats.version>
+        <dependency.mongodb.version>3.12.14</dependency.mongodb.version>
         <dependency.adventure.api.version>4.13.0</dependency.adventure.api.version>
         <dependency.annotations.version>24.0.1</dependency.annotations.version>
         <dependency.gson.version>2.10</dependency.gson.version>
