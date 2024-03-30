@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface PluginStatisticProperties {
-
     boolean enabled() default false;
 
     int identification() default 0;
