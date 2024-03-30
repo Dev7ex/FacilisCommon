@@ -3,6 +3,7 @@ package com.dev7ex.common.bukkit.inventory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -17,6 +18,10 @@ public class Inventorys {
             return Optional.empty();
         }
         return Optional.of(player.getOpenInventory().getTopInventory());
+    }
+
+    public static boolean isSimilar(@Nullable final Inventory firstInventory, @Nullable final Inventory secondInventory) {
+        return ((firstInventory != null) && (secondInventory != null)) && ((firstInventory.getHolder()) != (secondInventory.getHolder()));
     }
 
 }
