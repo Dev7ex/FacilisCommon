@@ -2,6 +2,7 @@ package com.dev7ex.common.bukkit.world;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public class Worlds {
 
     public static List<World> getEndWorlds() {
         return Bukkit.getWorlds().stream().filter(world -> world.getEnvironment().equals(World.Environment.THE_END)).toList();
+    }
+    public static boolean isLoaded(@NotNull final String worldName) {
+        return (Bukkit.getWorld(worldName) != null);
     }
 
 }
