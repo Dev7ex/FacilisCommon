@@ -17,7 +17,6 @@ public class EntityBuilder {
     private final Location location;
     private String name;
     private boolean nameVisible = true;
-
     public EntityBuilder(@NotNull final EntityType entityType, @NotNull final Location location) {
         this.entityType = entityType;
         this.location = location;
