@@ -5,22 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>facilis-common</artifactId>
         <groupId>com.dev7ex</groupId>
+        <artifactId>facilis-common-craftbukkit</artifactId>
         <version>1.0.5-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
 
-    <name>FacilisCommon-CraftBukkit</name>
-    <modules>
-        <module>facilis-common-craftbukkit-core</module>
-        <module>facilis-common-craftbukkit-1_20_R3</module>
-    </modules>
-    <artifactId>facilis-common-craftbukkit</artifactId>
+    <name>FacilisCommon-CraftBukkit-Core</name>
+    <artifactId>facilis-common-craftbukkit-core</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
 </project>
