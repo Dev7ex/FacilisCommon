@@ -5,6 +5,7 @@ import com.dev7ex.common.bukkit.command.BukkitCommandExecutor;
 import com.dev7ex.common.bukkit.plugin.module.PluginModule;
 import com.dev7ex.common.bukkit.plugin.module.PluginModuleManager;
 import com.dev7ex.common.bukkit.plugin.statistic.PluginStatisticProperties;
+import com.dev7ex.common.bukkit.util.ProtocolVersion;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.command.PluginCommand;
@@ -26,6 +27,7 @@ import java.util.function.Predicate;
 public class BasePlugin extends JavaPlugin {
 
     private final PluginModuleManager moduleManager = new PluginModuleManager(this);
+    private final ProtocolVersion protocolVersion = ProtocolVersion.getCurrentProtocolVersion();
 
     /**
      * Creates the data folder for the plugin if it does not exist.
