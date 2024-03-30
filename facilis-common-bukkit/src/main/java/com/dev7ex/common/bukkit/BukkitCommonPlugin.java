@@ -40,6 +40,8 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener, Config
     public void onEnable() {
         super.registerListener(this);
         this.updateChecker.getVersion((updateAvailable) -> {});
+
+        super.getLogger().info("Server Version: " + super.getProtocolVersion().getName());
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
@@ -96,6 +98,10 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener, Config
     @EventHandler(priority = EventPriority.NORMAL)
     public void handlePlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
+
+        if (!player.hasPermission("faciliscommon.notify.update")) {
+            return;
+        }
 
         if (!this.configuration.getBoolean("settings.receive-update-message")) {
             return;
