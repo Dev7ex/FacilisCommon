@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.dev7ex</groupId>
+        <artifactId>facilis-common-nms</artifactId>
+        <version>1.0.6-SNAPSHOT</version>
+    </parent>
+
+    <name>FacilisCommon-NMS-1-20-R3</name>
+    <artifactId>facilis-common-nms-v1_20_R3</artifactId>
+
+    <properties>
+        <maven.compiler.source>${project.source.version}</maven.compiler.source>
+        <maven.compiler.source>${project.source.version}</maven.compiler.source>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.dev7ex</groupId>
+            <artifactId>facilis-common-nms-core</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dev7ex</groupId>
+            <artifactId>facilis-common-core</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${dependency.lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${dependency.annotations.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>
