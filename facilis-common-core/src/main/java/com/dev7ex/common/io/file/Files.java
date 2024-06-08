@@ -7,41 +7,63 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * @author Dev7ex
- * @since 18.07.2022
+ * Utility class for file operations.
  */
-public class Files {
+public final class Files {
 
-    private Files() {}
+    private Files() {
+    }
 
+    /**
+     * Checks if the specified folder contains a file with the given name.
+     *
+     * @param folder   The folder to search in.
+     * @param fileName The name of the file to check for.
+     * @return True if the folder contains the file, false otherwise.
+     */
     public static boolean containsFile(final File folder, final String fileName) {
-        final File[] files = folder.listFiles();
-
-        if (files == null) {
-            return false;
+        if (!folder.isDirectory()) {
+            throw new IllegalArgumentException("Specified file is not a directory: " + folder.getAbsolutePath());
         }
 
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].isDirectory()) {
-                continue;
+        final File[] files = Objects.requireNonNull(folder.listFiles());
+
+        for (final File file : files) {
+            if (file.isFile() && file.getName().equalsIgnoreCase(fileName)) {
+                return true;
             }
-            if(!files[i].getName().equalsIgnoreCase(fileName)) {
-                continue;
-            }
-            return true;
         }
+
         return false;
     }
 
+    /**
+     * Retrieves a list of files in the specified folder.
+     *
+     * @param folder The folder to retrieve files from.
+     * @return A list of files in the folder.
+     * @throws IllegalArgumentException if the specified file is not a directory.
+     */
     public static List<File> getFiles(final File folder) {
         if (!folder.isDirectory()) {
-            throw new UnsupportedOperationException(folder.getName() + " is not a directory");
+            throw new IllegalArgumentException("Specified file is not a directory: " + folder.getAbsolutePath());
         }
-        return List.of(Objects.requireNonNull(folder.listFiles()));
+        return Arrays.asList(Objects.requireNonNull(folder.listFiles()));
     }
 
+    /**
+     * Converts the names of all subdirectories of the specified file to a list of strings.
+     *
+     * @param file The file containing subdirectories.
+     * @return A list of subdirectory names.
+     */
     public static List<String> toStringList(final File file) {
-        return Arrays.stream(Objects.requireNonNull(file.listFiles())).filter(File::isDirectory).map(File::getName).collect(Collectors.toList());
+        if (!file.isDirectory()) {
+            throw new IllegalArgumentException("Specified file is not a directory: " + file.getAbsolutePath());
+        }
+        return Arrays.stream(Objects.requireNonNull(file.listFiles(File::isDirectory)))
+                .map(File::getName)
+                .collect(Collectors.toList());
     }
 
 }
