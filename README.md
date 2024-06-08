@@ -1,6 +1,15 @@
 ![Icon-Bild](resources/images/Title.png)
 
-![Latest Release](https://img.shields.io/github/v/release/Dev7ex/FacilisCommon) ![SpigotMC Downloads](https://img.shields.io/spiget/downloads/107198?label=Downloads) ![Spiget Rating](https://img.shields.io/spiget/rating/107198?label=Rating&style=flat-square) ![Java](https://img.shields.io/badge/Java-17+-orange) ![Spigot](https://img.shields.io/badge/Spigot-1.16--1.20-red) [![CodeFactor](https://www.codefactor.io/repository/github/dev7ex/faciliscommon/badge)](https://www.codefactor.io/repository/github/dev7ex/faciliscommon) ![Last Commit](https://img.shields.io/github/last-commit/Dev7ex/FacilisCommon) ![GitHub](https://img.shields.io/github/license/dev7ex/faciliscommon) ![Discord](https://img.shields.io/discord/834580308543668264) ![Modrinth Followers](https://img.shields.io/modrinth/followers/multiworld-bukkit)
+![Latest Release](https://img.shields.io/github/v/release/Dev7ex/FacilisCommon)
+![SpigotMC Downloads](https://img.shields.io/spiget/downloads/107198?label=Downloads)
+![Spiget Rating](https://img.shields.io/spiget/rating/107198?label=Rating&style=flat-square)
+![Java](https://img.shields.io/badge/Java-17+-orange)
+![Spigot](https://img.shields.io/badge/Spigot-1.16--1.20-red)
+[![CodeFactor](https://www.codefactor.io/repository/github/dev7ex/faciliscommon/badge)](https://www.codefactor.io/repository/github/dev7ex/faciliscommon)
+![Last Commit](https://img.shields.io/github/last-commit/Dev7ex/FacilisCommon)
+![GitHub](https://img.shields.io/github/license/dev7ex/faciliscommon)
+![Discord](https://img.shields.io/discord/834580308543668264)
+![Modrinth Followers](https://img.shields.io/modrinth/followers/faciliscommon)
 
 ---
 
