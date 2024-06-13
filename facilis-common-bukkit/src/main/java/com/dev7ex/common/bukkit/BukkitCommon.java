@@ -11,13 +11,14 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BukkitCommon {
 
-    private BukkitCommon() {}
+    private BukkitCommon() {
+    }
 
     /**
      * @return The Minecraft version of the server (Example: 1.19.0)
      */
     public static String getMinecraftVersion() {
-        String bukkitVersion = Bukkit.getBukkitVersion();
+        final String bukkitVersion = Bukkit.getBukkitVersion();
         final int dash = bukkitVersion.indexOf('-');
         return bukkitVersion.substring(0, dash);
     }
@@ -29,14 +30,50 @@ public class BukkitCommon {
         return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
     }
 
-    public static CommandSender getCommandSender(@NotNull final String name) {
-        for (final Player player : Bukkit.getOnlinePlayers()) {
-            if (!player.getName().equalsIgnoreCase(name)) {
-                continue;
-            }
-            return player;
+    public static boolean isPaper() {
+        try {
+            Class.forName("io.papermc.paper.event.player.AsyncChatEvent");
+            return true;
+
+        } catch (final ClassNotFoundException exception) {
+            return false;
         }
-        return Bukkit.getConsoleSender();
+    }
+
+    public static boolean isFolia() {
+        try {
+            Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
+            return true;
+
+        } catch (final ClassNotFoundException exception) {
+            return false;
+        }
+    }
+
+    /**
+     * Gets the type of server software.
+     *
+     * @return a string representing the server software. It could be "Paper", "Folia", or "Spigot".
+     */
+    public static String getServerSoftware() {
+        if (isPaper()) {
+            return "Paper";
+        } else if (isFolia()) {
+            return "Folia";
+        }
+        return "Spigot";
+    }
+
+    /**
+     * Gets a {@link CommandSender} by name.
+     *
+     * @param name the name of the player or console.
+     * @return the {@link CommandSender} corresponding to the given name. If a player with the given name is found, that player is returned.
+     * Otherwise, the console sender is returned.
+     */
+    public static CommandSender getCommandSender(@NotNull final String name) {
+        final Player player = Bukkit.getPlayerExact(name);
+        return (player != null) ? player : Bukkit.getConsoleSender();
     }
 
 }
