@@ -52,6 +52,7 @@ public class PluginModuleManager {
 
     public void disableAllModules() {
         this.modules.values().forEach(PluginModule::onDisable);
+        this.modules.clear();
     }
 
 }
