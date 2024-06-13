@@ -1,103 +1,89 @@
 package com.dev7ex.common.io.file.configuration;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSerializer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Implementation of ConfigurationProvider for JSON-based configurations.
+ */
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class JsonConfiguration extends ConfigurationProvider
-{
+public class JsonConfiguration extends ConfigurationProvider {
 
-    private final Gson json = new GsonBuilder().serializeNulls().setPrettyPrinting().registerTypeAdapter( FileConfiguration.class, new JsonSerializer<FileConfiguration>()
-    {
-        @Override
-        public JsonElement serialize(FileConfiguration src, Type typeOfSrc, JsonSerializationContext context)
-        {
-            return context.serialize( ( (FileConfiguration) src ).self );
-        }
-    } ).create();
+    private final Gson json = new GsonBuilder()
+            .serializeNulls()
+            .setPrettyPrinting()
+            .registerTypeAdapter(FileConfiguration.class, (JsonSerializer<FileConfiguration>) (configuration, type, context)
+                    -> context.serialize(configuration.self)).create();
 
     @Override
-    public void save(FileConfiguration config, File file) throws IOException
-    {
-        try ( Writer writer = new OutputStreamWriter( new FileOutputStream( file ), StandardCharsets.UTF_8 ) )
-        {
-            save( config, writer );
+    public void save(final FileConfiguration config, final File file) throws IOException {
+        try (final Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
+            this.save(config, writer);
         }
     }
 
     @Override
-    public void save(FileConfiguration config, Writer writer)
-    {
-        json.toJson( config.self, writer );
+    public void save(final FileConfiguration config, final Writer writer) {
+        this.json.toJson(config.self, writer);
     }
 
     @Override
-    public FileConfiguration load(File file) throws IOException
-    {
-        return load( file, null );
+    public FileConfiguration load(final File file) throws IOException {
+        return this.load(file, null);
     }
 
     @Override
-    public FileConfiguration load(File file, FileConfiguration defaults) throws IOException
-    {
-        try ( FileInputStream is = new FileInputStream( file ) )
-        {
-            return load( is, defaults );
+    public FileConfiguration load(final File file, final FileConfiguration defaults) throws IOException {
+        try (final FileInputStream is = new FileInputStream(file)) {
+            return this.load(is, defaults);
         }
     }
 
     @Override
-    public FileConfiguration load(Reader reader)
-    {
-        return load( reader, null );
+    public FileConfiguration load(final Reader reader) {
+        return this.load(reader, null);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public FileConfiguration load(Reader reader, FileConfiguration defaults)
-    {
-        Map<String, Object> map = json.fromJson( reader, LinkedHashMap.class );
-        if ( map == null )
-        {
+    public FileConfiguration load(final Reader reader, final FileConfiguration defaults) {
+        Map<String, Object> map = this.json.fromJson(reader, LinkedHashMap.class);
+        if (map == null) {
             map = new LinkedHashMap<>();
         }
-        return new FileConfiguration( map, defaults );
+        return new FileConfiguration(map, defaults);
     }
 
     @Override
-    public FileConfiguration load(InputStream is)
-    {
-        return load( is, null );
+    public FileConfiguration load(final InputStream is) {
+        return this.load(is, null);
     }
 
     @Override
-    public FileConfiguration load(InputStream is, FileConfiguration defaults)
-    {
-        return load( new InputStreamReader( is, StandardCharsets.UTF_8 ), defaults );
+    public FileConfiguration load(final InputStream is, final FileConfiguration defaults) {
+        return this.load(new InputStreamReader(is, StandardCharsets.UTF_8), defaults);
     }
 
     @Override
-    public FileConfiguration load(String string)
-    {
-        return load( string, null );
+    public FileConfiguration load(final String string) {
+        return this.load(string, null);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public FileConfiguration load(String string, FileConfiguration defaults)
-    {
-        Map<String, Object> map = json.fromJson( string, LinkedHashMap.class );
-        if ( map == null )
-        {
+    public FileConfiguration load(final String string, final FileConfiguration defaults) {
+        Map<String, Object> map = this.json.fromJson(string, LinkedHashMap.class);
+        if (map == null) {
             map = new LinkedHashMap<>();
         }
-        return new FileConfiguration( map, defaults );
+        return new FileConfiguration(map, defaults);
     }
 }

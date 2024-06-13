@@ -3,13 +3,16 @@ package com.dev7ex.common.collect.map;
 import java.util.*;
 
 /**
+ * A utility class that extends HashMap and provides methods to retrieve and parse values from the map.
+ *
+ * @param <K> The type of keys in the map.
+ * @param <V> The type of values in the map.
  * @author Dev7ex
  * @since 02.11.2020
  */
 public class ParsedMap<K, V> extends HashMap<K, V> {
 
     public ParsedMap() {
-
     }
 
     public ParsedMap(final int initialCapacity) {
