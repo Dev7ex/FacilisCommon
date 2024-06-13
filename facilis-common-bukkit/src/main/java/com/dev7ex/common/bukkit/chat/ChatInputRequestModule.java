@@ -15,12 +15,12 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Dev7ex
  * @since 27.02.2023
  */
-public class ChatInputRequestService implements PluginModule {
+public class ChatInputRequestModule implements PluginModule {
 
     private final Map<UUID, ChatInputRequest> chatInputRequests = new HashMap<>();
     private final Lock reentrantLock = new ReentrantLock();
 
-    public ChatInputRequestService(@NotNull final Plugin plugin) {
+    public ChatInputRequestModule(@NotNull final Plugin plugin) {
         Bukkit.getPluginManager().registerEvents(new ChatInputRequestListener(this), plugin);
     }
 
