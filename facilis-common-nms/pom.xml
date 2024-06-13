@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.dev7ex</groupId>
         <artifactId>facilis-common</artifactId>
@@ -11,6 +12,8 @@
 
     <name>FacilisCommon-NMS</name>
     <artifactId>facilis-common-nms</artifactId>
+    <url>https://github.com/Dev7ex/FacilisCommon/tree/main/facilis-common-nms</url>
+    <version>NMS Library for Minecraft</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -22,9 +25,8 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>${project.source.version}</maven.compiler.source>
+        <maven.compiler.source>${project.source.version}</maven.compiler.source>
     </properties>
 
 </project>

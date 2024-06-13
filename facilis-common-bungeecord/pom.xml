@@ -7,11 +7,13 @@
     <parent>
         <artifactId>facilis-common</artifactId>
         <groupId>com.dev7ex</groupId>
-        <version>1.0.5-SNAPSHOT</version>
+        <version>1.0.6-SNAPSHOT</version>
     </parent>
 
     <name>FacilisCommon-BungeeCord</name>
     <artifactId>facilis-common-bungeecord</artifactId>
+    <description>BungeeCord Library for Minecraft</description>
+    <url>https://github.com/Dev7ex/FacilisCommon/tree/main/facilis-common-bungeecord</url>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
@@ -35,9 +37,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>${dependency.annotations.version}</version>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-api</artifactId>
+            <version>${dependency.bungeecord.version}</version>
+            <type>javadoc</type>
             <scope>provided</scope>
         </dependency>
 
@@ -49,10 +52,9 @@
         </dependency>
 
         <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>${dependency.bungeecord.version}</version>
-            <type>javadoc</type>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${dependency.annotations.version}</version>
             <scope>provided</scope>
         </dependency>
 
