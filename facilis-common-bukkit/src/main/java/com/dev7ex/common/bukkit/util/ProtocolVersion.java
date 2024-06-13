@@ -8,6 +8,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 
 /**
+ * Represents different Minecraft protocol versions.
+ * Provides methods for obtaining protocol versions based on protocol number or version name.
+ *
  * @author Dev7ex
  * @since 23.03.2024
  */
@@ -58,14 +61,24 @@ public enum ProtocolVersion {
     MINECRAFT_1_20_1(763, "1.20.1"),
     MINECRAFT_1_20_2(764, "1.20.2"),
     MINECRAFT_1_20_3(765, "1.20.3"),
-    MINECRAFT_1_20_4(765, "1.20.4");
+    MINECRAFT_1_20_4(765, "1.20.4"),
+    MINECRAFT_1_20_5(765, "1.20.5"),
+    MINECRAFT_1_20_6(765, "1.20.6");
 
     private final int protocolVersion;
     private final String name;
+
     ProtocolVersion(final int protocolVersion, @NotNull final String name) {
         this.protocolVersion = protocolVersion;
         this.name = name;
     }
+
+    /**
+     * Retrieves the ProtocolVersion associated with the given protocol number.
+     *
+     * @param protocolVersion The protocol number.
+     * @return The corresponding ProtocolVersion, or UNKNOWN if not found.
+     */
     public static ProtocolVersion getProtocolVersion(final int protocolVersion) {
         return Arrays.stream(ProtocolVersion.values())
                 .filter(protocol -> protocol.getProtocolVersion() == protocolVersion)
@@ -73,6 +86,11 @@ public enum ProtocolVersion {
                 .orElse(ProtocolVersion.UNKNOWN);
     }
 
+    /**
+     * Retrieves the ProtocolVersion associated with the current Minecraft version.
+     *
+     * @return The ProtocolVersion for the current Minecraft version, or UNKNOWN if not found.
+     */
     public static ProtocolVersion getCurrentProtocolVersion() {
         return Arrays.stream(ProtocolVersion.values())
                 .filter(protocol -> protocol.getName().equalsIgnoreCase(BukkitCommon.getMinecraftVersion()))

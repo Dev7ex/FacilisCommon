@@ -5,15 +5,37 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 /**
+ * Interface for accessing configuration values in a plugin.
+ * Implement this interface to provide methods for loading and retrieving
+ * configuration settings such as strings, numbers, booleans, and lists.
+ * <p>
+ * Methods in this interface throw {@link NullPointerException} if the
+ * provided {@code path} parameter is {@code null}, and may throw
+ * {@link ClassCastException} if the retrieved value is not of the expected type.
+ *
  * @author Dev7ex
  * @since 16.12.2022
  */
 public interface BasePluginConfiguration {
 
+    /**
+     * Loads the configuration settings.
+     * Implement this method to initialize the configuration values.
+     */
     void load();
 
+    /**
+     * Retrieves the prefix for messages in the plugin.
+     *
+     * @return the prefix string
+     */
     String getPrefix();
 
+    /**
+     * Retrieves the message to display when a player has no permission.
+     *
+     * @return the no permission message
+     */
     String getNoPermissionMessage();
 
     String getString(@NotNull final String path);

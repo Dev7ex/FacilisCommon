@@ -8,15 +8,29 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Default implementation of {@link BasePluginConfiguration} that extends {@link Configuration}.
+ * Handles loading and retrieving configuration values using a file-based configuration system.
+ * <p>
+ * This class provides methods to retrieve various types of configuration values such as strings,
+ * numbers, booleans, and lists from the underlying file configuration.
+ *
  * @author Dev7ex
  * @since 16.12.2022
  */
 public abstract class DefaultPluginConfiguration extends Configuration implements BasePluginConfiguration {
 
+    /**
+     * Constructs a new instance of {@code DefaultPluginConfiguration}.
+     *
+     * @param configurationHolder The configuration holder from which to load configuration.
+     */
     public DefaultPluginConfiguration(@NotNull final ConfigurationHolder configurationHolder) {
         super(configurationHolder);
     }
 
+    /**
+     * Loads the configuration file by copying it if necessary and then loading its contents.
+     */
     @Override
     public void load() {
         super.copyFile();
@@ -74,7 +88,7 @@ public abstract class DefaultPluginConfiguration extends Configuration implement
     }
 
     @Override
-    public char getCharacter(@NotNull String path) {
+    public char getCharacter(@NotNull final String path) {
         return Objects.requireNonNull(this.getFileConfiguration().getString(path)).charAt(0);
     }
 
@@ -93,27 +107,33 @@ public abstract class DefaultPluginConfiguration extends Configuration implement
         return this.getFileConfiguration().getIntegerList(path);
     }
 
+    @Override
     public List<Short> getShortList(@NotNull final String path) {
         return this.getFileConfiguration().getShortList(path);
     }
 
+    @Override
     public List<Byte> getByteList(@NotNull final String path) {
         return this.getFileConfiguration().getByteList(path);
     }
 
+    @Override
     public List<Double> getDoubleList(@NotNull final String path) {
         return this.getFileConfiguration().getDoubleList(path);
     }
 
+    @Override
     public List<Float> getFloatList(@NotNull final String path) {
         return this.getFileConfiguration().getFloatList(path);
     }
 
+    @Override
     public List<Boolean> getBooleanList(@NotNull final String path) {
         return this.getFileConfiguration().getBooleanList(path);
     }
 
-    public List<Character> getCharacterList(@NotNull final String path){
+    @Override
+    public List<Character> getCharacterList(@NotNull final String path) {
         return this.getFileConfiguration().getCharList(path);
     }
 
