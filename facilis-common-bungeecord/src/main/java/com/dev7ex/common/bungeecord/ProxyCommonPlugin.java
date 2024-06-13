@@ -7,6 +7,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 /**
+ * Represents a common proxy plugin for BungeeCord.
+ * This class extends {@link ProxyPlugin} and implements {@link ConfigurablePlugin}.
+ * It manages plugin configuration and statistics.
+ *
  * @author Dev7ex
  * @since 08.01.2022
  */
@@ -16,6 +20,9 @@ public class ProxyCommonPlugin extends ProxyPlugin implements ConfigurablePlugin
 
     private ProxyCommonConfiguration configuration;
 
+    /**
+     * Initializes the plugin configuration when the plugin is loaded.
+     */
     @Override
     public void onLoad() {
         this.configuration = new ProxyCommonConfiguration(this);
