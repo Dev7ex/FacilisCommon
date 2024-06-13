@@ -1,5 +1,8 @@
 package com.dev7ex.common.bukkit.chat;
 
+import com.dev7ex.common.bukkit.BukkitCommonPlugin;
+import com.dev7ex.common.bukkit.event.player.PlayerChatInputRequestEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,22 +17,25 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ChatInputRequestListener implements Listener {
 
-    private final ChatInputRequestService chatInputRequestService;
+    private final ChatInputRequestModule chatInputRequestModule;
 
-    public ChatInputRequestListener(@NotNull final ChatInputRequestService chatInputRequestService) {
-        this.chatInputRequestService = chatInputRequestService;
+    public ChatInputRequestListener(@NotNull final ChatInputRequestModule chatInputRequestModule) {
+        this.chatInputRequestModule = chatInputRequestModule;
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void handlePlayerChat(final AsyncPlayerChatEvent event) {
         final Player player = event.getPlayer();
 
-        if (this.chatInputRequestService.getChatInputRequest(player.getUniqueId()) == null) {
-           return;
+        if (this.chatInputRequestModule.getChatInputRequest(player.getUniqueId()) == null) {
+            return;
         }
-        final ChatInputRequest chatInputRequest = this.chatInputRequestService.getChatInputRequest(player.getUniqueId());
+        final ChatInputRequest chatInputRequest = this.chatInputRequestModule.getChatInputRequest(player.getUniqueId());
         final ChatInputRequestOption option = new ChatInputRequestOption();
 
+        Bukkit.getScheduler().runTask(BukkitCommonPlugin.getInstance(), () -> {
+            Bukkit.getPluginManager().callEvent(new PlayerChatInputRequestEvent(player, chatInputRequest));
+        });
         chatInputRequest.request(event.getMessage(), option);
 
         if (option.isCancel()) {
@@ -37,14 +43,13 @@ public class ChatInputRequestListener implements Listener {
         }
 
         if (option.isRemove()) {
-            this.chatInputRequestService.removeChatRequest(player.getUniqueId());
+            this.chatInputRequestModule.removeChatRequest(player.getUniqueId());
         }
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void handlePlayerQuit(final PlayerQuitEvent event) {
-        this.chatInputRequestService.removeChatRequest(event.getPlayer().getUniqueId());
+        this.chatInputRequestModule.removeChatRequest(event.getPlayer().getUniqueId());
     }
-
 
 }
