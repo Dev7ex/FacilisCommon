@@ -2,6 +2,7 @@ package com.dev7ex.common.velocity;
 
 import com.dev7ex.common.velocity.plugin.ConfigurablePlugin;
 import com.dev7ex.common.velocity.plugin.VelocityPlugin;
+import com.dev7ex.common.velocity.plugin.statistic.PluginStatisticProperties;
 import com.google.inject.Inject;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
@@ -24,6 +25,7 @@ import java.nio.file.Path;
 @Getter(AccessLevel.PUBLIC)
 @Plugin(id = "faciliscommon", name = "FacilisCommon", version = "1.0.6-SNAPSHOT",
         description = "Library for Minecraft", authors = {"Dev7ex"})
+@PluginStatisticProperties(identification = 23029, enabled = true)
 public class VelocityCommonPlugin extends VelocityPlugin implements ConfigurablePlugin {
 
     private VelocityCommonConfiguration configuration;
