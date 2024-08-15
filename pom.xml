@@ -30,6 +30,8 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
 
+        <dependency.folia.version>1.20.1-R0.1-SNAPSHOT</dependency.folia.version>
+        <dependency.json.version>20240303</dependency.json.version>
         <dependency.hikaricp.version>5.1.0</dependency.hikaricp.version>
         <dependency.mysql.version>8.0.33</dependency.mysql.version>
         <dependency.guava.version>33.2.1-jre</dependency.guava.version>
