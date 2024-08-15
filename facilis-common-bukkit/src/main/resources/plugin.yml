@@ -1,17 +1,22 @@
 api-version: 1.16
 author: Dev7ex
 database: false
-depend: []
+depend: [ ]
 description: ${project.description}
 libraries:
   - net.kyori:adventure-api:${dependency.adventure.api.version}
+  - net.kyori:adventure-text-minimessage:${dependency.adventure.api.version}
+  - net.kyori:adventure-platform-bukkit:${dependency.adventure.platform.version}
   - org.apache.commons:commons-lang3:${dependency.commons.lang3.version}
   - commons-io:commons-io:${dependency.commons.io.version}
+  - mysql:mysql-connector-java:${dependency.mysql.version}
+  - org.mongodb:mongo-java-driver:${dependency.mongodb.version}
+  - org.json:json:${dependency.json.version}
 load: POSTWORLD
-loadbefore: []
+loadbefore: [ ]
 main: com.dev7ex.common.bukkit.BukkitCommonPlugin
 name: FacilisCommon
 prefix: FacilisCommon
-softdepend: [ProtocolLib]
+softdepend: [ ProtocolLib ]
 version: ${project.version}
 website: ${project.url}
