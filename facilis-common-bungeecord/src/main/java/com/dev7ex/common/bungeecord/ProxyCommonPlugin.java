@@ -15,7 +15,7 @@ import lombok.Getter;
  * @since 08.01.2022
  */
 @Getter(AccessLevel.PUBLIC)
-@PluginStatisticProperties(enabled = true, identification = 21219)
+@PluginStatisticProperties(enabled = true, identification = 23028)
 public class ProxyCommonPlugin extends ProxyPlugin implements ConfigurablePlugin {
 
     private ProxyCommonConfiguration configuration;
