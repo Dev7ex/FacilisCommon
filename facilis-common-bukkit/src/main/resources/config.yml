@@ -14,7 +14,4 @@ prefix: '§8[§cFacilisCommon§8]§r'
 no-permission: '§cIm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that is in error.'
 # Settings
 settings:
-  receive-update-message: true
-  update-message-player: '%prefix% §7There is a new update available. §8[§chttps://www.spigotmc.org/resources/faciliscommon.107198/'
-  update-message-version-player: '%prefix% §7Current Version: §c%current_version% §7New Version §c%new_version%'
 
