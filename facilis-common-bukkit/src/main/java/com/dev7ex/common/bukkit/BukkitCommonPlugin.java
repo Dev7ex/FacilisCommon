@@ -6,16 +6,14 @@ import com.dev7ex.common.bukkit.plugin.DatabasePlugin;
 import com.dev7ex.common.bukkit.plugin.PluginIdentification;
 import com.dev7ex.common.bukkit.plugin.statistic.PluginStatistic;
 import com.dev7ex.common.bukkit.plugin.statistic.PluginStatisticProperties;
-import com.dev7ex.common.bukkit.util.UpdateChecker;
 import lombok.AccessLevel;
 import lombok.Getter;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * @author Dev7ex
@@ -27,8 +25,6 @@ import org.bukkit.event.server.PluginEnableEvent;
 public class BukkitCommonPlugin extends BukkitPlugin implements Listener, ConfigurablePlugin {
 
     private BukkitCommonConfiguration configuration;
-    private final UpdateChecker updateChecker = new UpdateChecker(this);
-    private PluginStatistic statistic;
 
     @Override
     public void onLoad() {
@@ -39,12 +35,12 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener, Config
     @Override
     public void onEnable() {
         super.registerListener(this);
-        this.updateChecker.getVersion((updateAvailable) -> {});
 
         super.getLogger().info("Server Version: " + super.getProtocolVersion().getName());
+        super.getLogger().info("Server Software: " + BukkitCommon.getServerSoftware());
     }
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void handlePluginEnable(final PluginEnableEvent event) {
         if (!(event.getPlugin() instanceof BukkitPlugin)) {
             return;
@@ -53,9 +49,9 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener, Config
         try {
             final BukkitPlugin plugin = (BukkitPlugin) event.getPlugin();
 
+            plugin.registerModules();
             plugin.registerCommands();
             plugin.registerListeners();
-            plugin.registerModules();
 
             if (plugin.hasStatistics()) {
                 final PluginStatisticProperties statisticProperties = plugin.getStatisticProperties();
@@ -63,59 +59,41 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener, Config
                 if (!statisticProperties.enabled()) {
                     return;
                 }
-                this.statistic = new PluginStatistic(plugin, statisticProperties.identification());
+                plugin.setStatistic(new PluginStatistic(plugin, statisticProperties.identification()));
             }
 
-            if (super.hasDatabase()) {
-                final DatabasePlugin databasePlugin = (DatabasePlugin) this;
+            if (plugin.hasDatabase()) {
+                final DatabasePlugin databasePlugin = (DatabasePlugin) plugin;
                 databasePlugin.onConnect();
             }
             plugin.getModuleManager().enableAllModules();
 
         } catch (final Exception exception) {
-            super.getLogger().warning("This error was not triggered directly by FacilisCommon");
+            super.getLogger().warning(" ");
+            super.getLogger().warning("FacilisCommon has detected an error in the plugin " + event.getPlugin().getName());
             super.getLogger().warning("If you are sure that this error comes from FacilisCommon then write an issue on Github");
-            super.getLogger().info("https://github.com/Dev7ex/FacilisCommon/issues");
+            super.getLogger().warning("https://github.com/Dev7ex/FacilisCommon/issues");
+            super.getLogger().warning(" ");
             exception.printStackTrace();
         }
     }
 
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void handlePluginDisable(final PluginDisableEvent event) {
         if (!(event.getPlugin() instanceof BukkitPlugin)) {
             return;
         }
         final BukkitPlugin plugin = (BukkitPlugin) event.getPlugin();
 
-        if (super.hasDatabase()) {
+        if (plugin.hasDatabase()) {
             final DatabasePlugin databasePlugin = (DatabasePlugin) plugin;
             databasePlugin.onDisconnect();
         }
-
-        super.getModuleManager().disableAllModules();
+        plugin.getModuleManager().disableAllModules();
     }
 
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void handlePlayerJoin(final PlayerJoinEvent event) {
-        final Player player = event.getPlayer();
-
-        if (!player.hasPermission("faciliscommon.notify.update")) {
-            return;
-        }
-
-        if (!this.configuration.getBoolean("settings.receive-update-message")) {
-            return;
-        }
-
-        if (!this.updateChecker.isUpdateAvailable()) {
-            return;
-        }
-        player.sendMessage(this.configuration.getString("settings.update-message-player")
-                .replaceAll("%prefix%", this.configuration.getPrefix()));
-        player.sendMessage(this.configuration.getString("settings.update-message-version-player")
-                .replaceAll("%prefix%", this.configuration.getPrefix())
-                .replaceAll("%current_version%", super.getDescription().getVersion())
-                .replaceAll("%new_version%", this.updateChecker.getNewVersion()));
+    public static BukkitCommonPlugin getInstance() {
+        return JavaPlugin.getPlugin(BukkitCommonPlugin.class);
     }
 
 }
