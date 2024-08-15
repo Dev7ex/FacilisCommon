@@ -6,10 +6,16 @@ package com.dev7ex.common.bukkit.plugin;
  */
 public abstract class BukkitPlugin extends BasePlugin {
 
-    public void registerCommands() {}
+    public void registerCommands() {
+    }
 
-    public void registerListeners() {}
+    public void registerListeners() {
+    }
 
-    public void registerModules() {}
+    public void registerModules() {
+    }
+
+    public void registerTasks() {
+    }
 
 }
