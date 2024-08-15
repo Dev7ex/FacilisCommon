@@ -4,10 +4,13 @@ import com.dev7ex.common.bukkit.command.BukkitCommand;
 import com.dev7ex.common.bukkit.command.BukkitCommandExecutor;
 import com.dev7ex.common.bukkit.plugin.module.PluginModule;
 import com.dev7ex.common.bukkit.plugin.module.PluginModuleManager;
+import com.dev7ex.common.bukkit.plugin.statistic.PluginStatistic;
 import com.dev7ex.common.bukkit.plugin.statistic.PluginStatisticProperties;
 import com.dev7ex.common.bukkit.util.ProtocolVersion;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.event.Listener;
@@ -24,10 +27,13 @@ import java.util.function.Predicate;
  * @since 02.03.2024
  */
 @Getter(AccessLevel.PUBLIC)
+@Setter(AccessLevel.PUBLIC)
 public class BasePlugin extends JavaPlugin {
 
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
     private final PluginModuleManager moduleManager = new PluginModuleManager(this);
     private final ProtocolVersion protocolVersion = ProtocolVersion.getCurrentProtocolVersion();
+    private PluginStatistic statistic;
 
     /**
      * Creates the data folder for the plugin if it does not exist.
@@ -82,7 +88,7 @@ public class BasePlugin extends JavaPlugin {
         final PluginCommand pluginCommand = super.getCommand(bukkitCommand.getName());
         Objects.requireNonNull(pluginCommand).setExecutor(new BukkitCommandExecutor(bukkitCommand));
 
-        if((bukkitCommand.getAliases()) != null && (bukkitCommand.getAliases().length > 0)) {
+        if ((bukkitCommand.getAliases()) != null && (bukkitCommand.getAliases().length > 0)) {
             pluginCommand.setAliases(Arrays.asList(bukkitCommand.getAliases()));
         }
         if (!(bukkitCommand instanceof TabCompleter)) {
