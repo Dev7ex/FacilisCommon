@@ -29,4 +29,9 @@ public class ProxyCommonPlugin extends ProxyPlugin implements ConfigurablePlugin
         this.configuration.load();
     }
 
+    @Override
+    public void onEnable() {
+        super.onEnable();
+    }
+
 }
