@@ -29,10 +29,10 @@ import java.util.Optional;
  */
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
-public abstract class ProxyCommand {
+public abstract class BungeeCommand {
 
     private final ProxyPlugin plugin;
-    private final Map<String, ProxyCommand> subCommands = new HashMap<>();
+    private final Map<String, BungeeCommand> subCommands = new HashMap<>();
     private String[] aliases = new String[]{};
 
     /**
@@ -40,7 +40,7 @@ public abstract class ProxyCommand {
      *
      * @param plugin the plugin instance associated with this command
      */
-    public ProxyCommand(@NotNull final ProxyPlugin plugin) {
+    public BungeeCommand(@NotNull final ProxyPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -56,15 +56,15 @@ public abstract class ProxyCommand {
     /**
      * Registers a subcommand for this command.
      *
-     * @param proxyCommand the subcommand to register
+     * @param bungeeCommand the subcommand to register
      */
-    public void registerSubCommand(@NotNull final ProxyCommand proxyCommand) {
-        if (proxyCommand.getAliases() != null && proxyCommand.getAliases().length > 0) {
-            Arrays.stream(proxyCommand.getAliases())
+    public void registerSubCommand(@NotNull final BungeeCommand bungeeCommand) {
+        if (bungeeCommand.getAliases() != null && bungeeCommand.getAliases().length > 0) {
+            Arrays.stream(bungeeCommand.getAliases())
                     .filter(alias -> !alias.isBlank())
-                    .forEach(alias -> this.subCommands.put(alias, proxyCommand));
+                    .forEach(alias -> this.subCommands.put(alias, bungeeCommand));
         }
-        this.subCommands.put(proxyCommand.getName(), proxyCommand);
+        this.subCommands.put(bungeeCommand.getName(), bungeeCommand);
     }
 
     /**
@@ -73,7 +73,7 @@ public abstract class ProxyCommand {
      * @param name the name of the subcommand
      * @return an Optional containing the subcommand if found, or an empty Optional if not found
      */
-    public Optional<ProxyCommand> getSubCommand(@NotNull final String name) {
+    public Optional<BungeeCommand> getSubCommand(@NotNull final String name) {
         return Optional.ofNullable(this.subCommands.get(name));
     }
 
@@ -83,7 +83,7 @@ public abstract class ProxyCommand {
      * @param commandClazz the class of the subcommand
      * @return the subcommand instance if found, or throws an exception if not found
      */
-    public @Nullable ProxyCommand getSubCommand(@NotNull final Class<? extends ProxyCommand> commandClazz) {
+    public @Nullable BungeeCommand getSubCommand(@NotNull final Class<? extends BungeeCommand> commandClazz) {
         return this.subCommands.values().stream()
                 .filter(subCommand -> subCommand.getClass() == commandClazz)
                 .findFirst()
@@ -96,7 +96,7 @@ public abstract class ProxyCommand {
      * @return the name of the command
      */
     public String getName() {
-        return this.getClass().getAnnotation(ProxyCommandProperties.class).name();
+        return this.getClass().getAnnotation(BungeeCommandProperties.class).name();
     }
 
     /**
@@ -105,7 +105,7 @@ public abstract class ProxyCommand {
      * @return the permission string
      */
     public String getPermission() {
-        return this.getClass().getAnnotation(ProxyCommandProperties.class).permission();
+        return this.getClass().getAnnotation(BungeeCommandProperties.class).permission();
     }
 
     /**
@@ -114,7 +114,7 @@ public abstract class ProxyCommand {
      * @return an array of aliases
      */
     public String[] getAliases() {
-        return this.getClass().getAnnotation(ProxyCommandProperties.class).aliases();
+        return this.getClass().getAnnotation(BungeeCommandProperties.class).aliases();
     }
 
     /**
