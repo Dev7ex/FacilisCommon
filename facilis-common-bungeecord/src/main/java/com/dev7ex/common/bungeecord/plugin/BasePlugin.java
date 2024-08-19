@@ -1,7 +1,7 @@
 package com.dev7ex.common.bungeecord.plugin;
 
-import com.dev7ex.common.bungeecord.command.ProxyCommand;
-import com.dev7ex.common.bungeecord.command.ProxyCommandExecutor;
+import com.dev7ex.common.bungeecord.command.BungeeCommand;
+import com.dev7ex.common.bungeecord.command.BungeeCommandExecutor;
 import com.dev7ex.common.bungeecord.plugin.module.PluginModule;
 import com.dev7ex.common.bungeecord.plugin.module.PluginModuleManager;
 import com.dev7ex.common.bungeecord.plugin.statistic.PluginStatisticProperties;
@@ -133,21 +133,21 @@ public class BasePlugin extends Plugin {
     /**
      * Registers a proxy command with the plugin.
      *
-     * @param proxyCommand the proxy command to register
+     * @param bungeeCommand the proxy command to register
      */
-    public void registerCommand(@NotNull final ProxyCommand proxyCommand) {
-        super.getProxy().getPluginManager().registerCommand(this, new ProxyCommandExecutor(proxyCommand));
+    public void registerCommand(@NotNull final BungeeCommand bungeeCommand) {
+        super.getProxy().getPluginManager().registerCommand(this, new BungeeCommandExecutor(bungeeCommand));
     }
 
     /**
      * Registers a proxy command with the plugin if a condition is met.
      *
-     * @param proxyCommand the proxy command to register
-     * @param predicate    the condition that must be true to register the command
+     * @param bungeeCommand the proxy command to register
+     * @param predicate     the condition that must be true to register the command
      */
-    public void registerCommandIf(@NotNull final ProxyCommand proxyCommand, @NotNull final Predicate<Boolean> predicate) {
+    public void registerCommandIf(@NotNull final BungeeCommand bungeeCommand, @NotNull final Predicate<Boolean> predicate) {
         if (predicate.test(true)) {
-            super.getProxy().getPluginManager().registerCommand(this, new ProxyCommandExecutor(proxyCommand));
+            super.getProxy().getPluginManager().registerCommand(this, new BungeeCommandExecutor(bungeeCommand));
         }
     }
 
