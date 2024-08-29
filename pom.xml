@@ -25,12 +25,14 @@
         <maven.compiler.source>${project.source.version}</maven.compiler.source>
         <maven.compiler.target>${project.source.version}</maven.compiler.target>
 
+        <project.source.encoding>UTF-8</project.source.encoding>
         <project.source.version>16</project.source.version>
         <project.version>1.0.6-SNAPSHOT</project.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
 
+        <dependency.sponge.version>8.0.0</dependency.sponge.version>
         <dependency.folia.version>1.20.1-R0.1-SNAPSHOT</dependency.folia.version>
         <dependency.json.version>20240303</dependency.json.version>
         <dependency.hikaricp.version>5.1.0</dependency.hikaricp.version>
