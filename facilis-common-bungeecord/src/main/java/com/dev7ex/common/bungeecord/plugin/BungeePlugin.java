@@ -16,7 +16,7 @@ import java.util.Optional;
  * @author Dev7ex
  * @since 19.07.2022
  */
-public abstract class ProxyPlugin extends BasePlugin {
+public abstract class BungeePlugin extends BasePlugin {
 
     private PluginStatistic statistic;
 

@@ -1,7 +1,7 @@
 package com.dev7ex.common.bungeecord.command;
 
+import com.dev7ex.common.bungeecord.plugin.BungeePlugin;
 import com.dev7ex.common.bungeecord.plugin.ConfigurablePlugin;
-import com.dev7ex.common.bungeecord.plugin.ProxyPlugin;
 import com.dev7ex.common.bungeecord.plugin.configuration.BasePluginConfiguration;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -23,7 +23,7 @@ import java.util.Optional;
  * @param <T> the type of the plugin configuration
  * @version 2.0
  * @see ConfigurablePlugin
- * @see ProxyPlugin
+ * @see BungeePlugin
  * @see BasePluginConfiguration
  * @since 19.07.2022
  */
@@ -31,7 +31,7 @@ import java.util.Optional;
 @Setter(AccessLevel.PUBLIC)
 public abstract class BungeeCommand {
 
-    private final ProxyPlugin plugin;
+    private final BungeePlugin plugin;
     private final Map<String, BungeeCommand> subCommands = new HashMap<>();
     private String[] aliases = new String[]{};
 
@@ -40,7 +40,7 @@ public abstract class BungeeCommand {
      *
      * @param plugin the plugin instance associated with this command
      */
-    public BungeeCommand(@NotNull final ProxyPlugin plugin) {
+    public BungeeCommand(@NotNull final BungeePlugin plugin) {
         this.plugin = plugin;
     }
 

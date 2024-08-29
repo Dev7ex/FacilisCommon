@@ -1,14 +1,15 @@
 package com.dev7ex.common.bungeecord;
 
+import com.dev7ex.common.bungeecord.plugin.BungeePlugin;
 import com.dev7ex.common.bungeecord.plugin.ConfigurablePlugin;
-import com.dev7ex.common.bungeecord.plugin.ProxyPlugin;
 import com.dev7ex.common.bungeecord.plugin.statistic.PluginStatisticProperties;
 import lombok.AccessLevel;
 import lombok.Getter;
+import net.md_5.bungee.api.plugin.Listener;
 
 /**
  * Represents a common proxy plugin for BungeeCord.
- * This class extends {@link ProxyPlugin} and implements {@link ConfigurablePlugin}.
+ * This class extends {@link BungeePlugin} and implements {@link ConfigurablePlugin}.
  * It manages plugin configuration and statistics.
  *
  * @author Dev7ex
@@ -16,22 +17,24 @@ import lombok.Getter;
  */
 @Getter(AccessLevel.PUBLIC)
 @PluginStatisticProperties(enabled = true, identification = 23028)
-public class ProxyCommonPlugin extends ProxyPlugin implements ConfigurablePlugin {
+public class BungeeCommonPlugin extends BungeePlugin implements ConfigurablePlugin, Listener {
 
-    private ProxyCommonConfiguration configuration;
+    private BungeeCommonConfiguration configuration;
 
     /**
      * Initializes the plugin configuration when the plugin is loaded.
      */
     @Override
     public void onLoad() {
-        this.configuration = new ProxyCommonConfiguration(this);
+        this.configuration = new BungeeCommonConfiguration(this);
         this.configuration.load();
     }
 
     @Override
     public void onEnable() {
         super.onEnable();
+
+        super.registerListener(this);
     }
 
 }

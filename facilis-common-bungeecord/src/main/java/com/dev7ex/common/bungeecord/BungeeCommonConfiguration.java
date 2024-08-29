@@ -15,14 +15,14 @@ import org.jetbrains.annotations.NotNull;
  * @since 08.01.2022
  */
 @ConfigurationProperties(fileName = "config.yml", provider = YamlConfiguration.class)
-public class ProxyCommonConfiguration extends DefaultPluginConfiguration {
+public class BungeeCommonConfiguration extends DefaultPluginConfiguration {
 
     /**
      * Constructs a new ProxyCommonConfiguration instance.
      *
      * @param plugin the plugin instance this configuration belongs to
      */
-    public ProxyCommonConfiguration(@NotNull final ConfigurablePlugin plugin) {
+    public BungeeCommonConfiguration(@NotNull final ConfigurablePlugin plugin) {
         super(plugin);
     }
 
