@@ -18,6 +18,7 @@
         <module>facilis-common-bungeecord</module>
         <module>facilis-common-velocity</module>
         <module>facilis-common-nms</module>
+        <module>facilis-common-sponge</module>
     </modules>
 
     <properties>
