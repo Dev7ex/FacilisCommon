@@ -5,6 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 /**
  * @author Dev7ex
  * @since 27.06.2022
@@ -74,6 +76,14 @@ public class BukkitCommon {
     public static CommandSender getCommandSender(@NotNull final String name) {
         final Player player = Bukkit.getPlayerExact(name);
         return (player != null) ? player : Bukkit.getConsoleSender();
+    }
+
+    public static Locale getLocale(@NotNull final CommandSender commandSender) {
+        if (commandSender instanceof final Player player) {
+            final String[] parts = player.getLocale().split("_");
+            return new Locale(parts[0], parts[1]);
+        }
+        return Locale.ENGLISH;
     }
 
 }
