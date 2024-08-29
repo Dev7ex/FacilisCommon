@@ -1,7 +1,7 @@
 author: Dev7ex
-depend: [FacilisCommon]
+depend: [ FacilisCommon ]
 description: ${project.description}
-main: com.dev7ex.common.bungeecord.ProxyCommonPlugin
+main: com.dev7ex.common.bungeecord.BungeeCommonPlugin
 name: FacilisCommon
 version: ${project.version}
 website: ${project.url}
