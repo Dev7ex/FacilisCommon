@@ -142,4 +142,5 @@ public abstract class BukkitCommand {
         }
         return (T) ((ConfigurablePlugin) this.plugin).getConfiguration();
     }
+
 }
