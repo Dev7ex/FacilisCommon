@@ -10,10 +10,10 @@ import java.util.List;
  * @author Dev7ex
  * @since 17.02.2024
  */
-public class EmptyTabCompleter implements BukkitTabCompleter {
+public interface EmptyTabCompleter extends BukkitTabCompleter {
 
     @Override
-    public List<String> onTabComplete(@NotNull final CommandSender commandSender, @NotNull final String[] arguments) {
+    default List<String> onTabComplete(@NotNull final CommandSender commandSender, @NotNull final String[] arguments) {
         return Collections.emptyList();
     }
 
