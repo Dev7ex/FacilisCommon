@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,6 +72,29 @@ public final class Locations {
         }
         return new Location(location.getWorld(), x, y, z, yaw, pitch);
     }
+
+    /**
+     * Calculates the hand location of a player based on their current position and orientation.
+     *
+     * <p>The calculated location is based on the player's eye height and takes into account
+     * the player's yaw (horizontal rotation) to determine the precise position of the hand in the world.</p>
+     *
+     * @param player The player whose hand location is to be calculated. Must not be null.
+     * @return The calculated hand location of the player.
+     */
+    public static Location calculateHandLocation(@NotNull final Player player) {
+        final Location playerLocation = player.getLocation().clone();
+
+        final double yawInRadians = playerLocation.getYaw() / 180D * Math.PI + Math.PI / 2;
+        final double distanceToHand = Math.sqrt(0.8D * 0.8D + 0.4D * 0.4D);
+
+        playerLocation.setX(playerLocation.getX() + distanceToHand * Math.cos(yawInRadians) - 0.8D * Math.sin(yawInRadians));
+        playerLocation.setY(playerLocation.getY() + player.getEyeHeight() - 0.2D);
+        playerLocation.setZ(playerLocation.getZ() + distanceToHand * Math.sin(yawInRadians) + 0.8D * Math.cos(yawInRadians));
+
+        return playerLocation;
+    }
+
 
     /**
      * Checks if two locations are similar, comparing their world and block coordinates.
