@@ -10,6 +10,7 @@ import com.dev7ex.common.bukkit.util.ProtocolVersion;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
@@ -31,6 +32,7 @@ import java.util.function.Predicate;
 public class BasePlugin extends JavaPlugin {
 
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
+    private BukkitAudiences audiences;
     private final PluginModuleManager moduleManager = new PluginModuleManager(this);
     private final ProtocolVersion protocolVersion = ProtocolVersion.getCurrentProtocolVersion();
     private PluginStatistic statistic;
