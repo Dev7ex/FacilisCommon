@@ -48,7 +48,7 @@
 
 # Requirements
 
-- Minecraft Version: 1.16 - 1.20
+- Minecraft Version: 1.16 - 1.21
 - Java Version: 17 or higher
 - Spigot Server
 
