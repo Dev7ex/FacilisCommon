@@ -80,8 +80,8 @@ public class Cuboid implements Cloneable, Iterable<Block> {
         final int x2 = this.getUpperX() & ~0xf;
         final int z1 = this.getLowerZ() & ~0xf;
         final int z2 = this.getUpperZ() & ~0xf;
-        for(int x = x1; x <= x2; x += 16) {
-            for(int z = z1; z <= z2; z += 16) {
+        for (int x = x1; x <= x2; x += 16) {
+            for (int z = z1; z <= z2; z += 16) {
                 chunks.add(world.getChunkAt(x >> 4, z >> 4));
             }
         }
@@ -91,37 +91,37 @@ public class Cuboid implements Cloneable, Iterable<Block> {
     public final List<Block> getBlocks() {
         final Iterator<Block> blockIterator = this.iterator();
         final List<Block> blockList = Lists.newArrayList();
-        while(blockIterator.hasNext()) {
+        while (blockIterator.hasNext()) {
             blockList.add(blockIterator.next());
         }
         return blockList;
     }
 
     public final Location getCenter() {
-        int x1 = this.getUpperX() + 1;
-        int y1 = this.getUpperY() + 1;
-        int z1 = this.getUpperZ() + 1;
+        final int x1 = this.getUpperX() + 1;
+        final int y1 = this.getUpperY() + 1;
+        final int z1 = this.getUpperZ() + 1;
         return new Location(this.getWorld(), this.getLowerX() + (x1 - this.getLowerX()) / 2.0, this.getLowerY() + (y1 - this.getLowerY()) / 2.0, this.getLowerZ() + (z1 - this.getLowerZ()) / 2.0);
     }
 
     public final Cuboid getFace(final CuboidDirection regionDirection) {
-        switch(regionDirection) {
-            case Down:
+        switch (regionDirection) {
+            case DOWN:
                 return new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y1, this.z2);
 
-            case Up:
+            case UP:
                 return new Cuboid(this.worldName, this.x1, this.y2, this.z1, this.x2, this.y2, this.z2);
 
-            case North:
+            case NORTH:
                 return new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x1, this.y2, this.z2);
 
-            case South:
+            case SOUTH:
                 return new Cuboid(this.worldName, this.x2, this.y1, this.z1, this.x2, this.y2, this.z2);
 
-            case East:
+            case EAST:
                 return new Cuboid(this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2, this.z1);
 
-            case West:
+            case WEST:
                 return new Cuboid(this.worldName, this.x1, this.y1, this.z2, this.x2, this.y2, this.z2);
 
             default:
@@ -130,23 +130,23 @@ public class Cuboid implements Cloneable, Iterable<Block> {
     }
 
     public final Cuboid expand(final CuboidDirection regionDirection, final int amount) {
-        switch(regionDirection) {
-            case North:
+        switch (regionDirection) {
+            case NORTH:
                 return new Cuboid(
                         this.worldName, this.x1 - amount, this.y1, this.z1, this.x2, this.y2, this.z2);
-            case South:
+            case SOUTH:
                 return new Cuboid(
                         this.worldName, this.x1, this.y1, this.z1, this.x2 + amount, this.y2, this.z2);
-            case East:
+            case EAST:
                 return new Cuboid(
                         this.worldName, this.x1, this.y1, this.z1 - amount, this.x2, this.y2, this.z2);
-            case West:
+            case WEST:
                 return new Cuboid(
                         this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2, this.z2 + amount);
-            case Down:
+            case DOWN:
                 return new Cuboid(
                         this.worldName, this.x1, this.y1 - amount, this.z1, this.x2, this.y2, this.z2);
-            case Up:
+            case UP:
                 return new Cuboid(
                         this.worldName, this.x1, this.y1, this.z1, this.x2, this.y2 + amount, this.z2);
             default:
@@ -155,8 +155,8 @@ public class Cuboid implements Cloneable, Iterable<Block> {
     }
 
     public final boolean isOnlyContaining(final Material material) {
-        for(Block b : this) {
-            if(b.getType() != material) {
+        for (final Block b : this) {
+            if (b.getType() != material) {
                 return false;
             }
         }
@@ -164,7 +164,7 @@ public class Cuboid implements Cloneable, Iterable<Block> {
     }
 
     public final Block getRelativeBlock(final World world, final int x, final int y, final int z) {
-        return this.getWorld().getBlockAt(this.x1 + x, y1 + y, this.z1 + z);
+        return this.getWorld().getBlockAt(this.x1 + x, this.y1 + y, this.z1 + z);
     }
 
     @Override
@@ -182,15 +182,17 @@ public class Cuboid implements Cloneable, Iterable<Block> {
                 && z <= this.z2;
     }
 
-    public Cuboid getBoundingCuboid(Cuboid other) {
-        if (other == null) return this;
+    public Cuboid getBoundingCuboid(final Cuboid other) {
+        if (other == null) {
+            return this;
+        }
 
-        int xMin = Math.min(this.getLowerX(), other.getLowerX());
-        int yMin = Math.min(this.getLowerY(), other.getLowerY());
-        int zMin = Math.min(this.getLowerZ(), other.getLowerZ());
-        int xMax = Math.max(this.getUpperX(), other.getUpperX());
-        int yMax = Math.max(this.getUpperY(), other.getUpperY());
-        int zMax = Math.max(this.getUpperZ(), other.getUpperZ());
+        final int xMin = Math.min(this.getLowerX(), other.getLowerX());
+        final int yMin = Math.min(this.getLowerY(), other.getLowerY());
+        final int zMin = Math.min(this.getLowerZ(), other.getLowerZ());
+        final int xMax = Math.max(this.getUpperX(), other.getUpperX());
+        final int yMax = Math.max(this.getUpperY(), other.getUpperY());
+        final int zMax = Math.max(this.getUpperZ(), other.getUpperZ());
 
         return new Cuboid(this.worldName, xMin, yMin, zMin, xMax, yMax, zMax);
     }
@@ -214,7 +216,7 @@ public class Cuboid implements Cloneable, Iterable<Block> {
     }
 
     public final boolean contains(final Location location) {
-        if(!this.worldName.equals(location.getWorld().getName())) {
+        if (!this.worldName.equals(location.getWorld().getName())) {
             return false;
         }
         return this.contains(location.getBlockX(), location.getBlockY(), location.getBlockZ());
