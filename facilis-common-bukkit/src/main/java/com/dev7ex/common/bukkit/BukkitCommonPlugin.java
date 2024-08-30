@@ -8,6 +8,7 @@ import com.dev7ex.common.bukkit.plugin.statistic.PluginStatistic;
 import com.dev7ex.common.bukkit.plugin.statistic.PluginStatisticProperties;
 import lombok.AccessLevel;
 import lombok.Getter;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -60,6 +61,10 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener, Config
                     return;
                 }
                 plugin.setStatistic(new PluginStatistic(plugin, statisticProperties.identification()));
+            }
+
+            if (plugin.getAudiences() == null) {
+                plugin.setAudiences(BukkitAudiences.create(plugin));
             }
 
             if (plugin.hasDatabase()) {
