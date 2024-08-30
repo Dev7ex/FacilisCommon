@@ -1,4 +1,4 @@
-![Icon-Bild](resources/images/Title.png)
+![Icon-Bild](resources/images/title-github.png)
 
 ![Latest Release](https://img.shields.io/github/v/release/Dev7ex/FacilisCommon)
 ![SpigotMC Downloads](https://img.shields.io/spiget/downloads/107198?label=Downloads)
@@ -8,7 +8,6 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/dev7ex/faciliscommon/badge)](https://www.codefactor.io/repository/github/dev7ex/faciliscommon)
 ![Last Commit](https://img.shields.io/github/last-commit/Dev7ex/FacilisCommon)
 ![GitHub](https://img.shields.io/github/license/dev7ex/faciliscommon)
-![Discord](https://img.shields.io/discord/834580308543668264)
 ![Modrinth Followers](https://img.shields.io/modrinth/followers/faciliscommon)
 
 ---
