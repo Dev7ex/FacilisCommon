@@ -7,7 +7,7 @@
     <groupId>com.dev7ex</groupId>
     <artifactId>facilis-common</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.7-SNAPSHOT</version>
     <name>FacilisCommon</name>
     <description>Library for Minecraft</description>
     <url>https://github.com/Dev7ex/FacilisCommon</url>
