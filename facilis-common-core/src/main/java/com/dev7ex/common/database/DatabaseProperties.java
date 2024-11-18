@@ -14,6 +14,8 @@ public interface DatabaseProperties {
 
     String getPassword();
 
+    String getDatabase();
+
     boolean isConnectionAllowed();
 
 }
