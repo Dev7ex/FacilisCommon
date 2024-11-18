@@ -59,11 +59,9 @@ public class BukkitCommonConfiguration extends DefaultPluginConfiguration {
      */
     @Getter(AccessLevel.PUBLIC)
     public enum Entry {
+
         PREFIX("prefix", "§8[§cFacilisCommon§8]§r", false),
-        NO_PERMISSION("no-permission", "§cIm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that is in error.", false),
-        SETTINGS_RECEIVE_UPDATE_MESSAGE("settings.receive-update-message", true, true),
-        SETTINGS_UPDATE_MESSAGE_PLAYER("settings.update-message-player", "", true),
-        SETTINGS_UPDATE_MESSAGE_VERSION_PLAYER("settings.update-message-version-player", "", true);
+        NO_PERMISSION("no-permission", "§cIm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that is in error.", false);
 
         private final String path;
         private final Object defaultValue;
