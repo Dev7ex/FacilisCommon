@@ -2,27 +2,34 @@ package com.dev7ex.common.bukkit.world.cuboid;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author desht
  * @since 27.08.2013
  */
+@Getter(AccessLevel.PUBLIC)
+@Setter(AccessLevel.PUBLIC)
 public class Cuboid implements Cloneable, Iterable<Block> {
 
     private Location firstLocation, secondLocation;
     private final String worldName;
     private final int x1, y1, z1, x2, y2, z2;
 
-    public Cuboid(final Location firstLocation, final Location secondLocation) {
+    public Cuboid(@NotNull final Location firstLocation, @NotNull final Location secondLocation) {
         this.firstLocation = firstLocation;
         this.secondLocation = secondLocation;
-        this.worldName = firstLocation.getWorld().getName();
+        this.worldName = Objects.requireNonNull(firstLocation.getWorld()).getName();
 
         this.x1 = Math.min(this.firstLocation.getBlockX(), this.secondLocation.getBlockX());
         this.y1 = Math.min(this.firstLocation.getBlockY(), this.secondLocation.getBlockY());
@@ -32,11 +39,11 @@ public class Cuboid implements Cloneable, Iterable<Block> {
         this.z2 = Math.max(this.firstLocation.getBlockZ(), this.secondLocation.getBlockZ());
     }
 
-    public Cuboid(final Location firstLocation) {
+    public Cuboid(@NotNull final Location firstLocation) {
         this(firstLocation, firstLocation);
     }
 
-    public Cuboid(final Cuboid otherRegion) {
+    public Cuboid(@NotNull final Cuboid otherRegion) {
         this(otherRegion.getWorld().getName(), otherRegion.x1, otherRegion.y1, otherRegion.z1, otherRegion.x2, otherRegion.y2, otherRegion.z2);
     }
 
@@ -264,6 +271,20 @@ public class Cuboid implements Cloneable, Iterable<Block> {
 
     public final int getUpperZ() {
         return this.z2;
+    }
+
+    @Override
+    public Cuboid clone() {
+        try {
+            final Cuboid clone = (Cuboid) super.clone();
+            clone.setFirstLocation(this.firstLocation.clone());
+            clone.setSecondLocation(this.secondLocation.clone());
+
+            return clone;
+
+        } catch (final CloneNotSupportedException exception) {
+            throw new AssertionError();
+        }
     }
 
 }
