@@ -13,7 +13,7 @@
     <name>FacilisCommon-NMS</name>
     <artifactId>facilis-common-nms</artifactId>
     <url>https://github.com/Dev7ex/FacilisCommon/tree/main/facilis-common-nms</url>
-    <version>NMS Library for Minecraft</version>
+    <description>NMS Library for Minecraft</description>
     <packaging>pom</packaging>
 
     <modules>
