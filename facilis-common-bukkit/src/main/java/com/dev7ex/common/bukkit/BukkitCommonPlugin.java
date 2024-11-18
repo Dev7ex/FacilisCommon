@@ -53,6 +53,7 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener, Config
             plugin.registerModules();
             plugin.registerCommands();
             plugin.registerListeners();
+            plugin.registerTasks();
 
             if (plugin.hasStatistics()) {
                 final PluginStatisticProperties statisticProperties = plugin.getStatisticProperties();
@@ -83,7 +84,7 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener, Config
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void handlePluginDisable(final PluginDisableEvent event) {
         if (!(event.getPlugin() instanceof BukkitPlugin)) {
             return;
