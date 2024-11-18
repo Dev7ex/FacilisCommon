@@ -24,9 +24,7 @@ import java.util.Objects;
  */
 public final class Locations {
 
-    private Locations() {
-        // Private constructor to prevent instantiation
-    }
+    private Locations() {}
 
     /**
      * Creates a {@link Location} object from a configuration file.
