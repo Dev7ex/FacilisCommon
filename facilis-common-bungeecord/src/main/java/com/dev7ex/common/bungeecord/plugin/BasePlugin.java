@@ -15,7 +15,14 @@ import net.md_5.bungee.api.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.function.Predicate;
+import java.util.logging.Level;
 
 /**
  * Base class for BungeeCord plugins providing common functionality and utilities.
@@ -192,6 +199,42 @@ public class BasePlugin extends Plugin {
             return;
         }
         this.moduleManager.registerModule(module);
+    }
+
+    public void saveResource(@NotNull final String resourcePath, final boolean replace) {
+        if (resourcePath.isEmpty()) {
+            throw new IllegalArgumentException("ResourcePath cannot be null or empty");
+        }
+        final File file = new File(this.getDataFolder(), resourcePath.replace('/', File.separatorChar));
+
+        try (final InputStream inputStream = this.getResourceAsStream(resourcePath)) {
+            if (inputStream == null) {
+                throw new IllegalArgumentException("The embedded resource '" + resourcePath + "' cannot be found");
+            }
+            if ((file.exists()) && (!replace)) {
+                super.getLogger().log(Level.WARNING, "Could not save " + file.getName() + " to " + resourcePath + " because " + file.getName() + " already exists");
+                return;
+            }
+            Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (final IOException exception) {
+            super.getLogger().log(Level.SEVERE, "Could not save " + file.getName());
+        }
+    }
+
+    public InputStream getResource(@NotNull final String resourcePath) {
+        try {
+            final URL url = this.getClass().getResource(resourcePath);
+            if (url == null) {
+                return null;
+            }
+            final URLConnection connection = url.openConnection();
+            connection.setUseCaches(false);
+            return connection.getInputStream();
+
+        } catch (final IOException exception) {
+            return null;
+        }
     }
 
     /**

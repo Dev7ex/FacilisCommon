@@ -21,7 +21,13 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.function.Predicate;
 
 /**
@@ -204,6 +210,42 @@ public abstract class BasePlugin {
             return;
         }
         this.registerCommand(command);
+    }
+
+    public void saveResource(@NotNull final String resourcePath, final boolean replace) {
+        if (resourcePath.isEmpty()) {
+            throw new IllegalArgumentException("ResourcePath cannot be null or empty");
+        }
+        final File file = new File(this.dataDirectory.toFile(), resourcePath.replace('/', File.separatorChar));
+
+        try (final InputStream inputStream = this.getResource(resourcePath)) {
+            if (inputStream == null) {
+                throw new IllegalArgumentException("The embedded resource '" + resourcePath + "' cannot be found");
+            }
+            if ((file.exists()) && (!replace)) {
+                this.logger.warn("Could not save " + file.getName() + " to " + resourcePath + " because " + file.getName() + " already exists");
+                return;
+            }
+            Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (final IOException exception) {
+            this.logger.error("Could not save " + file.getName());
+        }
+    }
+
+    public InputStream getResource(@NotNull final String resourcePath) {
+        try {
+            final URL url = this.getClass().getResource(resourcePath);
+            if (url == null) {
+                return null;
+            }
+            final URLConnection connection = url.openConnection();
+            connection.setUseCaches(true);
+            return connection.getInputStream();
+
+        } catch (final IOException exception) {
+            return null;
+        }
     }
 
     /**
