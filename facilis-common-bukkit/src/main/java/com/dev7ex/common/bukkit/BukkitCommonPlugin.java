@@ -50,6 +50,7 @@ public class BukkitCommonPlugin extends BukkitPlugin implements Listener, Config
         try {
             final BukkitPlugin plugin = (BukkitPlugin) event.getPlugin();
 
+            plugin.registerManagers();
             plugin.registerModules();
             plugin.registerCommands();
             plugin.registerListeners();

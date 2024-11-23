@@ -26,10 +26,11 @@ public abstract class BungeePlugin extends BasePlugin {
      */
     @Override
     public void onEnable() {
+        this.registerManagers();
         this.registerModules();
+        this.registerTasks();
         this.registerCommands();
         this.registerListeners();
-        this.registerTasks();
 
         // Initialize statistics if enabled
         if (this.hasStatistics()) {

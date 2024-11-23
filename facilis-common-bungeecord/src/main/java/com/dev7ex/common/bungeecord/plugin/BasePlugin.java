@@ -40,37 +40,15 @@ public class BasePlugin extends Plugin {
     private final PluginModuleManager moduleManager = new PluginModuleManager(this);
     private final PluginManager pluginManager = ProxyServer.getInstance().getPluginManager();
 
-    /**
-     * Registers commands for the plugin.
-     * Override this method in subclasses to register custom commands.
-     */
-    public void registerCommands() {
-        // Implement in subclasses
-    }
+    public void registerCommands() {}
 
-    /**
-     * Registers listeners for the plugin.
-     * Override this method in subclasses to register custom listeners.
-     */
-    public void registerListeners() {
-        // Implement in subclasses
-    }
+    public void registerListeners() {}
 
-    /**
-     * Registers modules for the plugin.
-     * Override this method in subclasses to register custom modules.
-     */
-    public void registerModules() {
-        // Implement in subclasses
-    }
+    public void registerManagers() {}
 
-    /**
-     * Registers tasks for the plugin.
-     * Override this method in subclasses to register custom tasks.
-     */
-    public void registerTasks() {
-        // Implement in subclasses
-    }
+    public void registerModules() {}
+
+    public void registerTasks() {}
 
     /**
      * Creates the data folder for the plugin if it does not exist.

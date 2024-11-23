@@ -77,6 +77,7 @@ public abstract class BasePlugin {
         this.onLoad();
         this.getServer().getEventManager().fire(new VelocityPluginLoadEvent(this));
 
+        this.registerManagers();
         this.registerModules();
         this.registerTasks();
         this.registerCommands();
@@ -137,6 +138,10 @@ public abstract class BasePlugin {
      * Override this method to register listeners specific to the plugin.
      */
     public void registerListeners() {
+    }
+
+    public void registerManagers() {
+
     }
 
     /**
